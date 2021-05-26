@@ -1,38 +1,18 @@
-# NodeJS_Template
+Application Info
+What will the app be?
 
-This application was originally a barebones template of [node-js-getting-started](https://github.com/heroku/node-js-getting-started) provided by Heroku. It has been revised to accomodate the needs of students taking the CSE341 course at BYU-Idaho. 
+What will the app do?
 
-Below are instructions provided by the original Heroku repository: 
-## Running Locally
+What kind of data layer will you incorporate?
 
-Make sure you have [Node.js](http://nodejs.org/) and the [Heroku CLI](https://cli.heroku.com/) installed.
+Will you choose to use a frontend JavaScript framework? If so, which? If not, why not?
 
-```sh
-$ git clone https://github.com/heroku/node-js-getting-started.git # or clone your own fork
-$ cd node-js-getting-started
-$ npm install
-$ npm start
-```
+How will your app utilize a login system?
 
-Your app should now be running on [localhost:5000](http://localhost:5000/).
+What views will change based on roles, or logged in status?
 
-## Deploying to Heroku
+What pieces of data in your app will need to be secured? How will you demonstrate web security principles in the development of this app?
 
-```
-$ heroku create
-$ git push heroku master
-$ heroku open
-```
-or
+What file structure and program architecture will you use for this project? Why?
 
-[![Deploy to Heroku](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
-
-## Documentation
-
-For more information about using Node.js on Heroku, see these Dev Center articles:
-
-- [Getting Started on Heroku with Node.js](https://devcenter.heroku.com/articles/getting-started-with-nodejs)
-- [Heroku Node.js Support](https://devcenter.heroku.com/articles/nodejs-support)
-- [Node.js on Heroku](https://devcenter.heroku.com/categories/nodejs)
-- [Best Practices for Node.js Development](https://devcenter.heroku.com/articles/node-best-practices)
-- [Using WebSockets on Heroku with Node.js](https://devcenter.heroku.com/articles/node-websockets)
+What are potential stretch challenges that you could implement to get 100%?
