@@ -1,18 +1,25 @@
-Application Info
-What will the app be?
 
-What will the app do?
+# MyList+
 
-What kind of data layer will you incorporate?
+Keep track of your favorite movie titles, tv shows and anime.
 
-Will you choose to use a frontend JavaScript framework? If so, which? If not, why not?
+## Project Structure
 
-How will your app utilize a login system?
+The project files and folders are organized as using the Model View Controller
 
-What views will change based on roles, or logged in status?
+---
 
-What pieces of data in your app will need to be secured? How will you demonstrate web security principles in the development of this app?
+## User Interface and app framework
+---
+** Node.js
+** Express.js and it'a built in routing will provide server framework.
+** Embedded Javascript files (EJS)
 
-What file structure and program architecture will you use for this project? Why?
 
-What are potential stretch challenges that you could implement to get 100%?
+## Authors
+
+---
+* Isabel Aranguren | lar19030@byui.edu
+* Vicente Castillo | 
+* Spencer
+* Ben Crow 
