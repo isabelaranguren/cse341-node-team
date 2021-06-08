@@ -24,6 +24,8 @@ const options = {
         family: 4
     };
 
+const MONGODB_URL = process.env.MONGODB_URL || "mongodb+srv://isabelaranguren:lETdcaYRD9Pyvs5Z@cluster0.5zzkq.mongodb.net/list?retryWrites=true&w=majority";
+
 app.use(express.static(path.join(__dirname, 'public')))
     .set('views', path.join(__dirname, 'views'))
     .set('view engine', 'ejs')
@@ -34,3 +36,14 @@ app.use(express.static(path.join(__dirname, 'public')))
 const titleRoutes = require('./routes/titles');
 
 app.use(titleRoutes)
+
+mongoose
+    .connect(
+        MONGODB_URL, options
+    )
+    .then(result => {
+    
+    })
+    .catch(err => {
+        console.log(err);
+    });
