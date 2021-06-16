@@ -21,5 +21,5 @@ The project files and folders are organized as using the Model View Controller
 ---
 * Isabel Aranguren | lar19030@byui.edu
 * Vicente Castillo | lea19019@byui.edu
-* Spencer
+* Spencer Pilkington | pil16001@byui.edu
 * Ben Crowe | cro18022@byui.edu
