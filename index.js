@@ -12,7 +12,7 @@ const app = express();
 const PORT = process.env.PORT || 5000 
 
 const corsOptions = {
-    origin: "https://cs341-node-team.herokuapp.com/",
+    origin: "https://my-list.herokuapp.com/",
     optionsSuccessStatus: 200
 };
 
