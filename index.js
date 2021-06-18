@@ -9,7 +9,7 @@ const errorController = require('./controllers/error');
 
 const app = express();
 
-const PORT = process.env.PORT || 5000 
+const PORT = process.env.PORT || 5000
 
 const corsOptions = {
     origin: "https://cs341-node-team.herokuapp.com/",
@@ -17,12 +17,12 @@ const corsOptions = {
 };
 
 const options = {
-        useUnifiedTopology: true,
-        useNewUrlParser: true,
-        useCreateIndex: true,
-        useFindAndModify: false,
-        family: 4
-    };
+    useUnifiedTopology: true,
+    useNewUrlParser: true,
+    useCreateIndex: true,
+    useFindAndModify: false,
+    family: 4
+};
 
 const MONGODB_URL = process.env.MONGODB_URL || "mongodb+srv://isabelaranguren:lETdcaYRD9Pyvs5Z@cluster0.5zzkq.mongodb.net/list?retryWrites=true&w=majority";
 
@@ -42,9 +42,13 @@ mongoose
         MONGODB_URL, options
     )
     .then(result => {
-    
     })
     .catch(err => {
         console.log(err);
     });
+<<<<<<< HEAD
     
+=======
+
+    //Test
+>>>>>>> Vicente
