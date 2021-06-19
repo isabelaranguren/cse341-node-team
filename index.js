@@ -2,12 +2,14 @@ const path = require("path")
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
+const csrf = require('csurf');
+const session = require('express-session')
 const mongoose = require('mongoose');
 const errorController = require('./controllers/error');
 
 const app = express();
 
-const PORT = process.env.PORT || 5000
+const PORT = process.env.PORT || 2000
 
 const corsOptions = {
     origin: "https://cs341-node-team.herokuapp.com/",
@@ -32,8 +34,10 @@ app.use(express.static(path.join(__dirname, 'public')))
     .listen(PORT, () => console.log(`Listening on ${PORT}`));
 
 const titleRoutes = require('./routes/titles');
+const authRoutes = require('./routes/auth');
 
-app.use(titleRoutes)
+app.use(titleRoutes);
+app.use(authRoutes);
 
 mongoose
     .connect(
