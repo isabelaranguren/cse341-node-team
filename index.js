@@ -46,9 +46,4 @@ mongoose
     .catch(err => {
         console.log(err);
     });
-<<<<<<< HEAD
     
-=======
-
-    //Test
->>>>>>> Vicente
