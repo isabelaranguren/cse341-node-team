@@ -1,16 +1,30 @@
+const Titles = require('../models/product');
+
 const mongoose = require('mongoose');
 
-const Title = require('../models/titles');
-
-exports.getAddTitle = (req,res,next) => {
+exports.getAddTitle = (req, res, next) => {
 
 };
 
-// redirect to favorite list page
-exports.postAddTitle = (req,res,next) => {
+exports.postAddTitle = (req, res, next) => {
 
 };
 
-exports.getAddTitle = (req,res,next) => {
+exports.deleteTitle = (req, res, next) => {
 
 };
+
+exports.getEditReview = (req, res, next) => {
+
+};
+
+exports.postEditReview = (req, res, next) => {
+
+};
+
+exports.deleteReview = (req, res, next) => {
+
+};
+
+
+
