@@ -44,7 +44,6 @@ mongoose
         MONGODB_URL, options
     )
     .then(result => {
-
     })
     .catch(err => {
         console.log(err);
