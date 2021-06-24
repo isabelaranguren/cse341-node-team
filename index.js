@@ -12,7 +12,7 @@ const app = express();
 const PORT = process.env.PORT || 2000
 
 const corsOptions = {
-    origin: "https://cs341-node-team.herokuapp.com/",
+    origin: "https://my-list.herokuapp.com/",
     optionsSuccessStatus: 200
 };
 
@@ -39,6 +39,7 @@ const authRoutes = require('./routes/auth');
 app.use(titleRoutes);
 app.use(authRoutes);
 
+//Test
 mongoose
     .connect(
         MONGODB_URL, options
