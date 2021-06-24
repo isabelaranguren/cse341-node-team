@@ -1,15 +1,35 @@
+<%- include('../includes/head.ejs') %>
+
 <body class="container">
-    <p1>popularMovieList</p1>
+    <!-- <div>
+        <% for (let i = 0; i < 5; i++) { %>
+        <img src="<%= 'http://image.tmdb.org/t/p/w500' + popularMovieList[i].backdrop_path %>" alt="Movie Backdrop">
+        <% } %>
+    </div> -->
+    <div class="movieBoard">
+        <% for (let popularMovie of popularMovieList) { %>
+        <div class="movieCard">
+            <img src="<%= 'http://image.tmdb.org/t/p/w500' + popularMovie.poster_path %>" alt="Movie Poster">
+            <h4><%= popularMovie.title %> </h4>
+        </div>
+        <% } %>
+
+        <% if (currentPage !== 1 && previousPage !== 1) { %>
+        <a href="?page=1" class="">1</a>
+        <% } %>
+
+        <% if (hasPrevious) { %>
+        <a href="?page=<%= previousPage %>" class=""><%= previousPage %></a>
+        <% } %>
+
+        <a href="?page=<%= currentPage %>" class=''><%= currentPage %></a>
 
 
+        <a href="?page=<%= nextPage %>" class=""><%= nextPage %></a>
 
-    <% for (let popularMovie of popularMovieList) { %>
-    <h2><%= popularMovie.original_title %> </h2>
-    <p><%= popularMovie.overview %></p>
-    <img src="<%= 'http://image.tmdb.org/t/p/w500' + popularMovie.poster_path %>" alt="">
 
-    <p><%= popularMovie.id %></p>
-    <% } %>
+    </div>
+    <script src="scripts/home.js"></script>
 
     <!-- 
          adult: false,
