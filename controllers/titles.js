@@ -77,13 +77,28 @@ exports.getTitleDetails = (req, res, next) => {
     // that we want to display such as title and 
     // description and then have a button that 
     //adds that movie to the user's movie list.
-    const titleId = req.url[7]+req.url[8]+req.url[9]+req.url[10]+req.url[11]+req.url[12];
-    res.render('pages/mediaDetails', {
-        titleId: titleId,
-        path: '/title/:titleId',
-        pageTitle: 'Movie Details'
+    const titleId = req.params.titleId; 
+    fetch(`https://api.themoviedb.org/3/movie/${titleId}?api_key=f4278fc5b9413965242b5e22893f2738&language=en-US`)
+        .then(response => response.json())
+        .then(title => {
+            console.log(title);
+            res.render('pages/mediaDetails', {
+                titleId: titleId,
+                path: '/title/:titleId',
+                pageTitle: 'Movie Details',
+                movieDetails: title
+        
+            });
+        })
+        .catch(err => {
+            console.log(err);
+        })
+    // res.render('pages/mediaDetails', {
+    //     titleId: titleId,
+    //     path: '/title/:titleId',
+    //     pageTitle: 'Movie Details'
 
-    });
+    // });
 
 };
 
