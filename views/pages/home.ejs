@@ -1,3 +1,11 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title><%= pageTitle %></title>
+    <link rel="stylesheet" href="../../public/css/main.css">
 <body class="container">
     <p1>popularMovieList</p1>
 
@@ -6,11 +14,17 @@
     <% for (let popularMovie of popularMovieList) { %>
     <h2><%= popularMovie.original_title %> </h2>
     <p><%= popularMovie.overview %></p>
-    <img src="<%= 'http://image.tmdb.org/t/p/w500' + popularMovie.poster_path %>" alt="">
+    <a href="/title/<%= popularMovie.id %>">
+        <img src="<%= 'http://image.tmdb.org/t/p/w500' + popularMovie.poster_path %>" alt="Movie">
+    </a>
 
     <p><%= popularMovie.id %></p>
     <% } %>
-
+    <footer>
+      </footer>
+    </body>
+    
+    </html>
     <!-- 
          adult: false,
      backdrop_path: '/z2UtGA1WggESspi6KOXeo66lvLx.jpg',

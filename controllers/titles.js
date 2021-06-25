@@ -66,6 +66,24 @@ exports.postTitle = (req, res, next) => {
 };
 
 exports.getTitleDetails = (req, res, next) => {
+    // get movie id from the URL. Im not sure how to do
+    // this without the URL saying ?id=####### but once
+    // the id is found check the database for a match
+    // to see if the movie is already in the database
+    // if not then add it. Idk when we would use the 
+    // id provided to us by mongodb (_id). Maybe we
+    // could use that somehow. Then use that id to
+    // fetch the rest of the data about the movie
+    // that we want to display such as title and 
+    // description and then have a button that 
+    //adds that movie to the user's movie list.
+    const titleId = req.url[7]+req.url[8]+req.url[9]+req.url[10]+req.url[11]+req.url[12];
+    res.render('pages/mediaDetails', {
+        titleId: titleId,
+        path: '/title/:titleId',
+        pageTitle: 'Movie Details'
+
+    });
 
 };
 
