@@ -10,6 +10,8 @@ const router = express.Router();
 router.get('/login', authController.getLogin);
 router.get('/signup', authController.getSignup);
 
+router.post('/logout', authController.postLogout);
+
 router.post('/login',
     body('email').isEmail()
         .withMessage('Please enter a valid email')

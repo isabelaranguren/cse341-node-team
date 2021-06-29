@@ -9,6 +9,12 @@
     <link rel="stylesheet" href="/css/main.css">
 
 <body class="container">
+    <li class="main-header__item">
+        <form action="/logout" method="post">
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+            <button type="submit">Logout</button>
+        </form>
+    </li>
     <div>
         <% for (let i = 0; i < 5; i++) { %>
         <img src="<%= 'http://image.tmdb.org/t/p/w500' + popularMovieList[i].backdrop_path %>" alt="Movie Backdrop">

@@ -80,6 +80,7 @@ exports.postLogin = (req, res, next) => {
                     if (doMatch) {
                         req.session.isLoggedIn = true;
                         req.session.user = user;
+
                         return req.session.save((err) => {
                             console.log(err);
                             res.redirect('/');
@@ -106,6 +107,13 @@ exports.postLogin = (req, res, next) => {
             error.httStatusCode = 500;
             return next(error);
         });
+};
+
+exports.postLogout = (req, res, next) => {
+    req.session.destroy((err) => {
+        console.log(err);
+        res.redirect('/');
+    });
 };
 
 exports.postLogout = (req, res, next) => {
