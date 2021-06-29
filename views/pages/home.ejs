@@ -1,21 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title><%= pageTitle %></title>
-    <link rel="stylesheet" href="../../public/css/main.css">
+<%- include('../includes/head'); -%>
+<%- include('../includes/header'); -%>
+</head>
 <body class="container">
-    <!-- <div>
-        <% for (let i = 0; i < 5; i++) { %>
-        <img src="<%= 'http://image.tmdb.org/t/p/w500' + popularMovieList[i].backdrop_path %>" alt="Movie Backdrop">
-        <% } %>
-    </div> -->
-    <!-- <div class="movieBoard">
+<%- include('../includes/navigation'); -%>
+    <div class="movieBoard">
         <% for (let popularMovie of popularMovieList) { %>
         <div class="movieCard">
-            <img src="<%= 'http://image.tmdb.org/t/p/w500' + popularMovie.poster_path %>" alt="Movie Poster">
+            <a href="/title/<%= popularMovie.id %>">
+                <img src="<%= 'http://image.tmdb.org/t/p/w500' + popularMovie.poster_path %>" alt="Movie Poster">
+            </a>
+            <p hidden><%= popularMovie.imdb_id %></p>
             <h4><%= popularMovie.title %> </h4>
         </div>
         <% } %>
@@ -31,42 +25,6 @@
         <a href="?page=<%= currentPage %>" class=''><%= currentPage %></a>
 
 
-        <a href="?page=<%= nextPage %>" class=""><%= nextPage %></a> -->
+        <a href="?page=<%= nextPage %>" class=""><%= nextPage %></a>
 
-    <% for (let popularMovie of popularMovieList) { %>
-    <h2><%= popularMovie.original_title %> </h2>
-    <p><%= popularMovie.overview %></p>
-    <a href="/title/<%= popularMovie.id %>">
-        <img src="<%= 'http://image.tmdb.org/t/p/w500' + popularMovie.poster_path %>" alt="Movie">
-    </a>
-
-    <p><%= popularMovie.id %></p>
-    <% } %>
-    <footer>
-      </footer>
-    </body>
-    
-    </html>
-
-    <!-- </div>
-    <script src="scripts/home.js"></script> -->
-
-    <!-- 
-         adult: false,
-     backdrop_path: '/z2UtGA1WggESspi6KOXeo66lvLx.jpg',
-     genre_ids: [ 878, 53, 27 ],
-     id: 520763,
-     original_language: 'en',
-     original_title: 'A Quiet Place Part II',
-     overview: 'Following the events at home, the Abbott family now face th
-     e terrors of the outside world. Forced to venture into the unknown, they
-     realize that the creatures that hunt by sound are not the only threats
-     that lurk beyond the sand path.',
-     popularity: 2822.328,
-     poster_path: '/4q2hz2m8hubgvijz8Ez0T2Os2Yv.jpg',
-     release_date: '2021-05-21',
-     title: 'A Quiet Place Part II',
-     video: false,
-     vote_average: 7.3,
-     vote_count: 364 
-    -->
+    <%- include('../includes/end.ejs') %>

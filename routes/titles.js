@@ -17,7 +17,7 @@ router.post('/delete-list', titleController.postDeleteList);
 
 router.post('/add-title', titleController.postTitle);
 
-router.get('/title/:titleId', titleController.getTitleDetails);
+router.get('/title/:id', titleController.getTitleDetails);
 
 router.post('/delete-title', titleController.postDeleteTitle);
 

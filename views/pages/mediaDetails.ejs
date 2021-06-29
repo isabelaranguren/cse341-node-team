@@ -1,21 +1,17 @@
-<!-- Display either Movie or TV shows and their details  -->
-<!-- <%- include('../includes/head.ejs') %> -->
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title><%= pageTitle %></title>
-    <link rel="stylesheet" href="../../public/css/main.css">
+<%- include('../includes/head'); -%>
+<%- include('../includes/header'); -%>
 </head>
-
 <body class="container">
-    <h1>Media Details Page!</h1>
-    <p1><%= movieDetails.original_title %></p1>
-    <footer>
-    
-    </footer>
-    </body>
-    
-    </html>
+    <%- include('../includes/navigation'); -%>
+    <h1 class="display-4"><%= movieTitle %></h1>
+    <img src="<%= 'http://image.tmdb.org/t/p/w500' + image %>" alt="Movie Poster">
+    <p><%= movieDetails %></p>
+    <br>
+    <p> Movie Rating: </p>
+    <p><%= ratings %></p>
+    <br>
+    <p> Release Date: </p>
+    <p><%= release %></p>
+    <input type="submit">
+ 
+    <%- include('../includes/end.ejs') %>
