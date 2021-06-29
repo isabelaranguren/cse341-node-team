@@ -1,18 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title><%= pageTitle %></title>
-    <link rel="stylesheet" href="../../public/css/main.css">
+    <link rel="stylesheet" href="/css/main.css">
+
 <body class="container">
-    <!-- <div>
+    <div>
         <% for (let i = 0; i < 5; i++) { %>
         <img src="<%= 'http://image.tmdb.org/t/p/w500' + popularMovieList[i].backdrop_path %>" alt="Movie Backdrop">
         <% } %>
-    </div> -->
-    <!-- <div class="movieBoard">
+    </div>
+    <div class="movieBoard">
         <% for (let popularMovie of popularMovieList) { %>
         <div class="movieCard">
             <img src="<%= 'http://image.tmdb.org/t/p/w500' + popularMovie.poster_path %>" alt="Movie Poster">
@@ -31,9 +33,10 @@
         <a href="?page=<%= currentPage %>" class=''><%= currentPage %></a>
 
 
-        <a href="?page=<%= nextPage %>" class=""><%= nextPage %></a> -->
+        <a href="?page=<%= nextPage %>" class=""><%= nextPage %></a>
+    </div>
 
-    <% for (let popularMovie of popularMovieList) { %>
+    <!-- <% for (let popularMovie of popularMovieList) { %>
     <h2><%= popularMovie.original_title %> </h2>
     <p><%= popularMovie.overview %></p>
     <a href="/title/<%= popularMovie.id %>">
@@ -41,17 +44,17 @@
     </a>
 
     <p><%= popularMovie.id %></p>
-    <% } %>
+    <% } %> -->
     <footer>
-      </footer>
-    </body>
-    
-    </html>
+    </footer>
+</body>
 
-    <!-- </div>
+</html>
+
+<!-- </div>
     <script src="scripts/home.js"></script> -->
 
-    <!-- 
+<!-- 
          adult: false,
      backdrop_path: '/z2UtGA1WggESspi6KOXeo66lvLx.jpg',
      genre_ids: [ 878, 53, 27 ],

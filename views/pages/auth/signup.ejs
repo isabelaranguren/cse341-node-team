@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= pageTitle %></title>
+    <link rel="stylesheet" href="/css/forms.css">
+    <link rel="stylesheet" href="/css/auth.css">
+</head>
+
+
+
+<body>
+
+    <main>
+        <% if (errorMessage) { %>
+        <div class="user-message user-message--error"><%= errorMessage %></div>
+        <% } %>
+        <form class="login-form" action="/signup" method="POST" novalidate>
+            <div class="form-control">
+                <label for="firstName">First Name:</label>
+                <input class="<%= validationErrors.find(e => e.param === 'email') ? 'invalid' : '' %>" type="text"
+                    name="firstName" id="firstName" value="<%= oldInput.firstName %>">
+            </div>
+            <div class="form-control">
+                <label for="lastName">Last Name:</label>
+                <input class="<%= validationErrors.find(e => e.param === 'email') ? 'invalid' : '' %>" type="text"
+                    name="lastName" id="lastName" value="<%= oldInput.lastName %>">
+            </div>
+            <div class="form-control">
+                <label for="userName">Username:</label>
+                <input class="<%= validationErrors.find(e => e.param === 'email') ? 'invalid' : '' %>" type="text"
+                    name="userName" id="userName" value="<%= oldInput.userName %>">
+            </div>
+            <div class="form-control">
+                <label for="email">E-Mail</label>
+                <input class="<%= validationErrors.find(e => e.param === 'email') ? 'invalid' : '' %>" type="email"
+                    name="email" id="email" value="<%= oldInput.email %>">
+            </div>
+            <div class="form-control">
+                <label for="password">Password</label>
+                <input class="<%= validationErrors.find(e => e.param === 'password') ? 'invalid' : '' %>"
+                    type="password" name="password" id="password" value="<%= oldInput.password %>">
+            </div>
+            <div class="form-control">
+                <label for="confirmPassword">Confirm Password</label>
+                <input class="<%= validationErrors.find(e => e.param === 'confirmPassword') ? 'invalid' : '' %>"
+                    type="password" name="confirmPassword" id="confirmPassword" value="<%= oldInput.confirmPassword %>">
+            </div>
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+            <button class="btn" type="submit">Signup</button>
+        </form>
+    </main>
+</body>
+
+</html>
