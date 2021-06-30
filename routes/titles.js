@@ -11,7 +11,7 @@ router.get('/popular', titleController.getPopular);
 
 router.get('/top-rated', titleController.getTopRated);
 
-router.get('/my-list/:userId', titleController.getMylist)
+router.get('/my-list/:userId', titleController.getMylist);
 
 router.post('/delete-list', titleController.postDeleteList);
 

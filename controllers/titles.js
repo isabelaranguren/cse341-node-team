@@ -57,8 +57,8 @@ exports.getTopRated = (req, res, next) => {
 
 exports.getMylist = (req, res, next) => {
     res.render('userList')('pages/userList', {
-        path:'',
-        
+        path:'/my-list/:userId',
+        pageTitle: "My List"
 
     });
 
