@@ -3,7 +3,8 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const csrf = require('csurf');
-const session = require('express-session')
+const session = require('express-session');
+const flash = require('connect-flash');
 const mongoose = require('mongoose');
 const errorController = require('./controllers/error');
 const MongoDBStore = require('connect-mongodb-session')(session);
@@ -38,6 +39,14 @@ app.use(express.static(path.join(__dirname, 'public')))
     .use(bodyParser.urlencoded({ extended: true }))
     .use(cors(corsOptions))
     .listen(PORT, () => console.log(`Listening on ${PORT}`));
+app.use(session({
+    secret: 'afsgsdrerhsdfg',
+    resave: false,
+    saveUninitialized: false,
+    store: store
+})
+);
+    app.use(flash());
 
 const titleRoutes = require('./routes/titles');
 const authRoutes = require('./routes/auth');
