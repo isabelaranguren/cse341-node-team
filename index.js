@@ -4,7 +4,9 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const csrf = require('csurf');
 const session = require('express-session')
+const flash = require('connect-flash');
 const mongoose = require('mongoose');
+const MongoDBStore = require('connect-mongodb-session')(session);
 const errorController = require('./controllers/error');
 
 const app = express();
@@ -25,6 +27,12 @@ const options = {
 };
 
 const MONGODB_URL = process.env.MONGODB_URL || "mongodb+srv://isabelaranguren:lETdcaYRD9Pyvs5Z@cluster0.5zzkq.mongodb.net/list?retryWrites=true&w=majority";
+const store = new MongoDBStore({
+    uri: MONGODB_URL,
+    collection: 'sessions'
+});
+const csrfProtection = csrf();
+
 
 app.use(express.static(path.join(__dirname, 'public')))
     .set('views', path.join(__dirname, 'views'))
@@ -35,6 +43,21 @@ app.use(express.static(path.join(__dirname, 'public')))
 
 const titleRoutes = require('./routes/titles');
 const authRoutes = require('./routes/auth');
+app.use(
+    session({
+        secret: 'my secret',
+        resave: false,
+        saveUninitialized: false,
+        store: store
+    })
+);
+app.use(csrfProtection);
+app.use(flash());
+app.use((req, res, next) => {
+    res.locals.isAuthenticated = req.session.isLoggedIn;
+    res.locals.csrfToken = req.csrfToken();
+    next();
+});
 
 app.use(titleRoutes);
 app.use(authRoutes);

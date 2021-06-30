@@ -1,51 +1,65 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title><%= pageTitle %></title>
-    <link rel="stylesheet" href="../../public/css/main.css">
+    <link rel="stylesheet" href="/css/main.css">
+
 <body class="container">
-    <!-- <div>
+    <li class="main-header__item">
+        <form action="/logout" method="post">
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+            <button type="submit">Logout</button>
+        </form>
+    </li>
+    <div>
         <% for (let i = 0; i < 5; i++) { %>
         <img src="<%= 'http://image.tmdb.org/t/p/w500' + popularMovieList[i].backdrop_path %>" alt="Movie Backdrop">
         <% } %>
-    </div> -->
-    <!-- <div class="movieBoard">
+    </div>
+    <div class="movieBoard">
         <% for (let popularMovie of popularMovieList) { %>
         <div class="movieCard">
             <img src="<%= 'http://image.tmdb.org/t/p/w500' + popularMovie.poster_path %>" alt="Movie Poster">
             <h4><%= popularMovie.title %> </h4>
         </div>
         <% } %>
+
         <% if (currentPage !== 1 && previousPage !== 1) { %>
         <a href="?page=1" class="">1</a>
         <% } %>
+
         <% if (hasPrevious) { %>
         <a href="?page=<%= previousPage %>" class=""><%= previousPage %></a>
         <% } %>
-        <a href="?page=<%= currentPage %>" class=''><%= currentPage %></a>
-        <a href="?page=<%= nextPage %>" class=""><%= nextPage %></a> -->
 
-    <% for (let popularMovie of popularMovieList) { %>
+        <a href="?page=<%= currentPage %>" class=''><%= currentPage %></a>
+
+
+        <a href="?page=<%= nextPage %>" class=""><%= nextPage %></a>
+    </div>
+
+    <!-- <% for (let popularMovie of popularMovieList) { %>
     <h2><%= popularMovie.original_title %> </h2>
     <p><%= popularMovie.overview %></p>
     <a href="/title/<%= popularMovie.id %>">
         <img src="<%= 'http://image.tmdb.org/t/p/w500' + popularMovie.poster_path %>" alt="Movie">
     </a>
     <p><%= popularMovie.id %></p>
-    <% } %>
+    <% } %> -->
     <footer>
-      </footer>
-    </body>
-    
-    </html>
+    </footer>
+</body>
 
-    <!-- </div>
+</html>
+
+<!-- </div>
     <script src="scripts/home.js"></script> -->
 
-    <!-- 
+<!-- 
          adult: false,
      backdrop_path: '/z2UtGA1WggESspi6KOXeo66lvLx.jpg',
      genre_ids: [ 878, 53, 27 ],
