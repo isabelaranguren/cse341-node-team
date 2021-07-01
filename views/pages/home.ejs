@@ -1,8 +1,8 @@
-<%- include('../includes/head'); -%>
-<%- include('../includes/header'); -%>
+<%- include('../includes/head.ejs') %>
+<%- include('../includes/header.ejs') %>
 </head>
 <body class="container">
-<%- include('../includes/navigation'); -%>
+    <%- include('../includes/navigation.ejs') %>
     <div class="movieBoard">
         <% for (let popularMovie of popularMovieList) { %>
         <div class="movieCard">
@@ -27,4 +27,4 @@
 
         <a href="?page=<%= nextPage %>" class=""><%= nextPage %></a>
 
-    <%- include('../includes/end.ejs') %>
+<%- include('../includes/end.ejs') %>

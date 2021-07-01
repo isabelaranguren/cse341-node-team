@@ -46,13 +46,21 @@ app.use(session({
     store: store
 })
 );
-    app.use(flash());
+app.use(csrfProtection);
+app.use(flash());
+
+app.use((req,res,next) => {
+    res.locals.csrfToken = req.csrfToken();
+    res.locals.isAuthenticated = req.session.isLoggedIn;
+    next();
+});
 
 const titleRoutes = require('./routes/titles');
 const authRoutes = require('./routes/auth');
 
 app.use(titleRoutes);
 app.use(authRoutes);
+
 
 //Test
 mongoose
