@@ -1,6 +1,7 @@
 <%- include('../includes/head'); -%>
 <%- include('../includes/header'); -%>
 </head>
+
 <body class="container">
     <%- include('../includes/navigation'); -%>
     <h1 class="display-4"><%= movieTitle %></h1>
@@ -12,6 +13,9 @@
     <br>
     <p> Release Date: </p>
     <p><%= release %></p>
-    <input type="submit">
- 
+    <form action="/add-title" method="POST">
+        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+        <button type="submit" value="<%= csrfToken %>">Add to List</button>
+    </form>
+
     <%- include('../includes/end.ejs') %>

@@ -45,13 +45,13 @@ const listTitlesSchema = new Schema({
             tagline: { type: String, required: true }
         }
     ],
-    user: {
-        userId: {
-            type: Schema.Types.ObjectId,
-            required: true,
-            ref: 'User'
-        }
+
+    userId: {
+        type: Schema.Types.ObjectId,
+        required: true,
+        ref: 'User'
     }
+
 });
 
 
