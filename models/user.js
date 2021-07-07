@@ -25,6 +25,9 @@ const userSchema = new Schema({
     },
     resetToken: String,
     resetTokenExpiration: Date,
+    list: {
+        items: [{movieId: {type: Schema.Types.ObjectId, ref: 'Media', required: true }}]
+    }
 
 });
 

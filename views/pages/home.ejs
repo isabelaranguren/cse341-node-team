@@ -1,6 +1,30 @@
-<%- include('includes/head.ejs') %>
+<%- include('../includes/head.ejs') %>
+<%- include('../includes/header.ejs') %>
 </head>
-
 <body class="container">
- 
-<%- include('includes/end.ejs') %>
+    <%- include('../includes/navigation.ejs') %>
+    <div class="movieBoard">
+        <% for (let popularMovie of popularMovieList) { %>
+        <div class="movieCard">
+            <a href="/title/<%= popularMovie.id %>">
+                <img src="<%= 'http://image.tmdb.org/t/p/w500' + popularMovie.poster_path %>" alt="Movie Poster">
+            </a>
+            <p hidden><%= popularMovie.imdb_id %></p>
+            <h4><%= popularMovie.title %> </h4>
+        </div>
+        <% } %>
+
+        <% if (currentPage !== 1 && previousPage !== 1) { %>
+        <a href="?page=1" class="">1</a>
+        <% } %>
+
+        <% if (hasPrevious) { %>
+        <a href="?page=<%= previousPage %>" class=""><%= previousPage %></a>
+        <% } %>
+
+        <a href="?page=<%= currentPage %>" class=''><%= currentPage %></a>
+
+
+        <a href="?page=<%= nextPage %>" class=""><%= nextPage %></a>
+
+<%- include('../includes/end.ejs') %>
