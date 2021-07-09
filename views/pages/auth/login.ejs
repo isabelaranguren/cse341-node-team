@@ -1,32 +1,46 @@
 <%- include('../../includes/head.ejs') %>
-<link rel="stylesheet" href="/css/forms.css">
-<link rel="stylesheet" href="/css/auth.css">
-
+<%- include('../../includes/header.ejs') %>
 </head>
-
 <body>
     <%- include('../../includes/navigation.ejs') %>
-
-    <main>
+    <div class="container mt-5">
         <% if (errorMessage) { %>
         <div class="user-message user-message--error"><%= errorMessage %></div>
         <% } %>
-        <form class="login-form" action="/login" method="POST">
-            <div class="form-control">
-                <label for="email">E-Mail</label>
-                <input class="<%= validationErrors.find(e => e.param === 'email' ) ? 'invalid' : '' %>" type="email"
-                    name="email" id="email" value="<%= oldInput.email %>">
+        <div class="d-flex justify-content-center align-items-center">
+        <section id="login">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="form-wrap">
+                    
+            <h5>Log in with your email account</h5>
+
+        <form class="login-form" action="/login" method="POST" id="login-form">
+            <div class="form-group">
+                <label for="email" class="sr-only">Email</label>
+                <input class="form-control<%= validationErrors.find(e => e.param === 'email' ) ? 'invalid' : '' %>" type="email"
+                    name="email" id="email" value="<%= oldInput.email %>" placeholder="somebody@example.com">
             </div>
-            <div class="form-control">
-                <label for="password">Password</label>
-                <input class="<%= validationErrors.find(e => e.param === 'password' ) ? 'invalid' : '' %>"
-                    type="password" name="password" id="password" value="<%= oldInput.password %>">
-            </div>
+            <div class="form-group">
+                <label for="password" class="sr-only">Password</label>
+                <input class="form-control <%= validationErrors.find(e => e.param === 'password' ) ? 'invalid' : '' %>"
+                    type="password" name="password" id="password" value="<%= oldInput.password %>" placeholder="Password">
+                    <div class="checkbox">
+                            <span class="character-checkbox" onclick="showPassword()"></span>
+                            <span class="label">Show password</span>
+                        </div>
             <input type="hidden" name="_csrf" value="<%= csrfToken %>">
-            <button class="btn" type="submit">Login</button>
-        </form>
-        <div class="centered">
-            <a href="/reset">Reset Password</a>
-        </div>
-    </main>
+            <button class="btn btn-custom"  type="submit">Login</button>
+
+    </form>
+    <a href="/reset" class="forget">Forgot your password?</a>
+</div>
+</div> <!-- /.col-xs-12 -->
+</div> <!-- /.row -->
+</div> <!-- /.container -->
+</section>
+</div>
+</div>
+    <script href="../../../public/scripts/example.js"></script>
     <%- include('../../includes/end.ejs') %>
