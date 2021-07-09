@@ -16,7 +16,7 @@ router.get('/my-list/:userId', isAuth, titleController.getMylist);
 
 router.post('/delete-list',isAuth, titleController.postDeleteList);
 
-router.post('/add-title',isAuth, titleController.postTitle);
+router.post('/add-title',isAuth, titleController.postList);
 
 router.get('/title/:id', titleController.getTitleDetails);
 
