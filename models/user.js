@@ -11,7 +11,7 @@ const userSchema = new Schema({
         type: String,
         required: true
     },
-    username: {
+    userName: {
         type: String,
         required: true
     },
@@ -25,10 +25,11 @@ const userSchema = new Schema({
     },
     resetToken: String,
     resetTokenExpiration: Date,
+    list: {
+        items: [{movieId: {type: Schema.Types.ObjectId, ref: 'Media', required: true }}]
+    }
 
 });
-
-
 
 
 module.exports = mongoose.model('User', userSchema);

@@ -2,7 +2,7 @@ require('dotenv').config();
 const bcrypt = require('bcryptjs');
 
 const User = require('../models/user');
-const { validationResult } = require('express-validator/check')
+const { validationResult } = require('express-validator')
 
 exports.getLogin = (req, res, next) => {
     let message = req.flash('error');
