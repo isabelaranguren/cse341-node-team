@@ -55,6 +55,7 @@ exports.getTopRated = (req, res, next) => {
 };
 
 exports.getMylist = (req, res, next) => {
+    //maybe should be like getProducts in the shop
     res.render('pages/userList', {
         path: '/my-list/:userId',
         pageTitle: "My List"
@@ -86,8 +87,27 @@ exports.postDeleteList = (req, res, next) => {
 
 };
 
-exports.postTitle = (req, res, next) => {
-    console.log(req.user)
+exports.postList = (req, res, next) => {
+    const title = req.body.movieTitle;
+    const release = req.body.release;
+    //make sure movie doesnt already exist in database
+    req.user
+        const newTitle = new Title({
+            title: title,
+            release: release,
+            userId: req.user
+        });
+        newTitle
+        .save()
+        .then(result => {
+            console.log('Created Title!');
+            res.redirect('/my-list/:userId');
+        })
+        .catch(err => {
+            const error = new Error(err);
+            error.httpStatusCode = 500;
+            return next(error);
+        });
 };
 
 exports.getTitleDetails = (req, res, next) => {
@@ -108,7 +128,7 @@ exports.getTitleDetails = (req, res, next) => {
                     return response.json();
                 })
                 .then(data => {
-                    // console.log(data)
+                    // console.log(data);
                     res.render('pages/mediaDetails', {
                         movieTitle: data.movie_results[0].title,
                         //tvShowResults: titles.tv_shows_results,
@@ -121,6 +141,7 @@ exports.getTitleDetails = (req, res, next) => {
                         image: data.movie_results[0].poster_path
 
                     });
+
                 })
                 .catch(err => {
                     console.log(err)
