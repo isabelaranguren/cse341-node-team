@@ -34,7 +34,7 @@
         margin: 1px 0 0 3px;
         position: absolute;
         pointer-events: none;
-        font-family: 'Glyphicons Halflings';
+        font-family: 'Poppins';
     }
     #login .checkbox .character-checkbox {
         width: 25px;
@@ -74,7 +74,8 @@
     .btn-custom:focus {
         color: #fff;
     }
-    
+
+
     /*    --------------------------------------------------
         :: Footer
         -------------------------------------------------- */
