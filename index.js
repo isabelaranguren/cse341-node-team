@@ -8,7 +8,7 @@ const flash = require('connect-flash');
 const mongoose = require('mongoose');
 const MongoDBStore = require('connect-mongodb-session')(session);
 const errorController = require('./controllers/error');
-const MongoDBStore = require('connect-mongodb-session')(session);
+// const MongoDBStore = require('connect-mongodb-session')(session);
 
 const app = express();
 
