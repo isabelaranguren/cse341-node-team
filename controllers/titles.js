@@ -43,13 +43,23 @@ exports.getTopRated = (req, res, next) => {
 
 exports.getMylist = (req, res, next) => {
     //maybe should be like getProducts in the shop
-    res.render('pages/userList', {
-        path: '/my-list/:userId',
-        pageTitle: "My List"
+    titles.find({userId: req.user._id})
+    .then(titles => {
+        console.log(titles[0]);
+        res.render('pages/userList', {
+            path: '/my-list/:userId',
+            pageTitle: "My List",
+            titles:titles
 
     });
-
+})
+.catch(err => {
+  const error = new Error(err);
+  error.httpStatusCode = 500;
+  return next(error);
+});
 };
+
 
 // exports.getCart = (req, res, next) => {
 //     req.user
@@ -77,11 +87,18 @@ exports.postDeleteList = (req, res, next) => {
 exports.postList = (req, res, next) => {
     const title = req.body.movieTitle;
     const release = req.body.release;
+    const titleId = req.body.titleId;
+    const image = req.body.image;
     //make sure movie doesnt already exist in database
     req.user
         const newTitle = new Title({
-            title: title,
-            release: release,
+            titles: [{
+
+                title: title,
+                id: titleId,
+                poster_path: image,
+                release: release,
+            }],
             userId: req.user
         });
         newTitle
@@ -117,7 +134,7 @@ exports.getTitleDetails = (req, res, next) => {
                     return response.json();
                 })
                 .then(data => {
-                    // console.log(data);
+                    console.log(data);
                     res.render('pages/mediaDetails', {
                         movieTitle: data.movie_results[0].title,
                         //tvShowResults: titles.tv_shows_results,
@@ -127,7 +144,8 @@ exports.getTitleDetails = (req, res, next) => {
                         ratings: data.movie_results[0].vote_average,
                         //runtime: data.movie_results[0].runtime,
                         release: data.movie_results[0].release_date,
-                        image: data.movie_results[0].poster_path
+                        image: data.movie_results[0].poster_path,
+                        titleId: titleId
 
                     });
 
@@ -146,5 +164,21 @@ exports.getTitleDetails = (req, res, next) => {
 };
 
 exports.postDeleteTitle = (req, res, next) => {
+    const titleId = req.body.titleId;
+    titles.findById(titleId)
+    .then(title => {
+        if(!title) {
+            return next(new Error('No Title Found!'));
+        }
+        return titles.deleteOne({_id:titleId, userId: req.user._id});
+    }).then(() => {
+        console.log('TITLE DELETED!');
+        res.redirect('/my-list/:userId')
+    })
+    .catch(err => {
+        const error = new Error(err);
+        error.httpStatusCode = 500;
+        return next(error);
+    });
 
 };
