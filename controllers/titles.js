@@ -23,7 +23,11 @@ exports.getIndex = (req, res, next) => {
         // https://api.themoviedb.org/3/movie/{movie_id}/images?api_key=<<api_key>>&language=en-US
         .then(response => response.json())
         .then(titles => {
+<<<<<<< HEAD
             console.log(titles);
+=======
+            console.log(titles)
+>>>>>>> origin/Spencer
             res.render('pages/home', {
                 popularMovieList: titles.results,
                 currentPage: page,
@@ -56,8 +60,32 @@ exports.getTopRated = (req, res, next) => {
 };
 
 exports.getMylist = (req, res, next) => {
+    res.render('pages/userList', {
+        path:'/my-list/:userId',
+        pageTitle: "My List"
+
+    });
 
 };
+
+// exports.getCart = (req, res, next) => {
+//     req.user
+//       .populate('cart.items.productId')
+//       .execPopulate()
+//       .then(user => {
+//         const products = user.cart.items;
+//         res.render('shop/cart', {
+//           path: '/cart',
+//           pageTitle: 'Your Cart',
+//           products: products,
+//         });
+//       })
+//       .catch(err => {
+//         const error = new Error(err);
+//         error.httpStatusCode = 500;
+//         return next(error);
+//       });
+//   };
 
 exports.postDeleteList = (req, res, next) => {
 
@@ -68,6 +96,7 @@ exports.postTitle = (req, res, next) => {
 };
 
 exports.getTitleDetails = (req, res, next) => {
+<<<<<<< HEAD
     // get movie id from the URL. Im not sure how to do
     // this without the URL saying ?id=####### but once
     // the id is found check the database for a match
@@ -123,6 +152,49 @@ exports.getTitleDetails = (req, res, next) => {
     //     pageTitle: 'Movie Details'
 
     // });
+=======
+    const titleId = req.params.id;
+    //const imdb_id = req.body.imdb_id;
+    fetch(`https://api.themoviedb.org/3/movie/${titleId}?api_key=f4278fc5b9413965242b5e22893f2738&language=en-US`)
+        
+        .then(response => {
+            // console.log(response);
+            return response.json();
+        })
+        .then(title => {
+            console.log(title);
+            const id = title.imdb_id;
+            fetch(`https://api.themoviedb.org/3/find/${id}?api_key=f4278fc5b9413965242b5e22893f2738&language=en-US&&external_source=imdb_id`)
+            .then(response => {
+            // console.log(response);
+            return response.json();
+        })
+            .then(data => {
+                console.log(data)
+                res.render('pages/mediaDetails', {
+                movieTitle: data.movie_results[0].title,
+                //tvShowResults: titles.tv_shows_results,
+                path: '/title/:id',
+                pageTitle: 'Movie Details',
+                movieDetails: data.movie_results[0].overview,
+                ratings: data.movie_results[0].vote_average,
+                //runtime: data.movie_results[0].runtime,
+                release: data.movie_results[0].release_date,
+                image: data.movie_results[0].poster_path
+        
+                });
+            })
+            .catch(err => {
+            console.log(err)
+        })
+            
+            
+        })
+        .catch(err => {
+            console.log(err);
+        })
+    
+>>>>>>> origin/Spencer
 
 };
 

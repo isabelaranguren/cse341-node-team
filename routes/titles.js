@@ -2,7 +2,7 @@ const path = require('path');
 const express = require('express');
 const titleController = require('../controllers/titles');
 const router = express.Router();
-const isAuth = require('../middleware/is_auth');
+const isAuth = require('../middleware/isAuth');
 
 router.get('/', titleController.getIndex);
 
@@ -24,3 +24,10 @@ router.post('/delete-title',isAuth, titleController.postDeleteTitle);
 
 
 module.exports = router;
+
+
+
+
+
+
+
