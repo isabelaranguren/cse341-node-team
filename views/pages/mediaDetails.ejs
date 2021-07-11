@@ -1,6 +1,7 @@
-<%- include('../includes/head'); -%>
-<%- include('../includes/header'); -%>
+<%- include('../includes/head.ejs') %>
+<%- include('../includes/header.ejs') %>
 </head>
+
 <body class="container">
     <%- include('../includes/navigation'); -%>
     <h1 class="display-4"><%= movieTitle %></h1>
@@ -12,6 +13,13 @@
     <br>
     <p> Release Date: </p>
     <p><%= release %></p>
-    <input type="submit">
- 
+    <form action="/add-title" method="POST">
+        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+        <input type="hidden" name="movieTitle" value="<%= movieTitle %>">
+        <input type="hidden" name="release" value="<%= release %>">
+        <input type="hidden" name="image" value="<%= image %>">
+        <input type="hidden" name="titleId" value="<%= titleId %>">
+        <button type="submit" value="<%= csrfToken %>">Add to List</button>
+    </form>
+
     <%- include('../includes/end.ejs') %>

@@ -1,7 +1,16 @@
 /* Remove the navbar's default margin-bottom and rounded borders */
-.navbar {
-    margin-bottom: 0;
-    border-radius: 0;
+
+html {
+    font-size: 14px;
+    color: rgb(16, 22, 41);
+}
+
+*{
+    font-family: 'Poppins', sans-serif;
+}
+
+.card-text {
+    font-size: 14px;
 }
 
 .movieBoard {
@@ -11,23 +20,13 @@
 @media (min-width: 750px) {
     .movieBoard {
         display: grid;
-        grid-template-columns: repeat(4, 1fr);
+        /* grid-template-columns: repeat(2, 1fr); */
     }
 
-    .movieCard img {
-        width: 13rem;
+    .movieCard img, .card {
+        width: 10rem;
     }
+
 
 }
 
-@media (min-width: 1200px) {
-    .container {
-        max-width: 970px;
-    }
-}
-
-/* Change background color and padding to the footer */
-footer {
-    background-color: #f2f2f2;
-    padding: 25px;
-}
