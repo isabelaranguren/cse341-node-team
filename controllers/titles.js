@@ -2,19 +2,6 @@ const titles = require('../models/titles');
 const Title = require('../models/titles');
 const fetch = require('node-fetch');
 
-// https://api.themoviedb.org/3/movie/popular?api_key=f4278fc5b9413965242b5e22893f2738&language=en-US&page=1
-
-// https://api.themoviedb.org/3/movie/top_rated?api_key=f4278fc5b9413965242b5e22893f273&language=en-US&page=1
-
-// https://api.themoviedb.org/3/movie/upcoming?api_key=f4278fc5b9413965242b5e22893f273&language=en-US&page=1
-
-// Tv
-// https://api.themoviedb.org/3/tv/latest?api_key=f4278fc5b9413965242b5e22893f273&language=en-US
-// https://api.themoviedb.org/3/tv/popular?api_key=f4278fc5b9413965242b5e22893f273&language=en-US&page=1
-// https://api.themoviedb.org/3/tv/top_rated?api_key=f4278fc5b9413965242b5e22893f273&language=en-US&page=1
-
-// https://api.themoviedb.org/3/watch/providers/regions?api_key=f4278fc5b9413965242b5e22893f2738&language=en-US
-
 exports.getIndex = (req, res, next) => {
     const page = +req.query.page || 1;
     const offset = 10 * (page - 1);
@@ -55,13 +42,24 @@ exports.getTopRated = (req, res, next) => {
 };
 
 exports.getMylist = (req, res, next) => {
-    res.render('pages/userList', {
-        path: '/my-list/:userId',
-        pageTitle: "My List"
+    //maybe should be like getProducts in the shop
+    titles.find({userId: req.user._id})
+    .then(titles => {
+        console.log(titles[0]);
+        res.render('pages/userList', {
+            path: '/my-list/:userId',
+            pageTitle: "My List",
+            titles:titles
 
     });
-
+})
+.catch(err => {
+  const error = new Error(err);
+  error.httpStatusCode = 500;
+  return next(error);
+});
 };
+
 
 // exports.getCart = (req, res, next) => {
 //     req.user
@@ -86,9 +84,37 @@ exports.postDeleteList = (req, res, next) => {
 
 };
 
-exports.postTitle = (req, res, next) => {
-    console.log(req.user)
+exports.postList = (req, res, next) => {
+    const title = req.body.movieTitle;
+    const release = req.body.release;
+    const titleId = req.body.titleId;
+    const image = req.body.image;
+    //make sure movie doesnt already exist in database
+    req.user
+        const newTitle = new Title({
+            titles: [{
+
+                title: title,
+                id: titleId,
+                poster_path: image,
+                release: release,
+            }],
+            userId: req.user
+        });
+        newTitle
+        .save()
+        .then(result => {
+            console.log('Created Title!');
+            res.redirect('/my-list/:userId');
+        })
+        .catch(err => {
+            const error = new Error(err);
+            error.httpStatusCode = 500;
+            return next(error);
+        });
 };
+
+
 
 exports.getTitleDetails = (req, res, next) => {
     const titleId = req.params.id;
@@ -108,7 +134,7 @@ exports.getTitleDetails = (req, res, next) => {
                     return response.json();
                 })
                 .then(data => {
-                    // console.log(data)
+                    console.log(data);
                     res.render('pages/mediaDetails', {
                         movieTitle: data.movie_results[0].title,
                         //tvShowResults: titles.tv_shows_results,
@@ -118,9 +144,11 @@ exports.getTitleDetails = (req, res, next) => {
                         ratings: data.movie_results[0].vote_average,
                         //runtime: data.movie_results[0].runtime,
                         release: data.movie_results[0].release_date,
-                        image: data.movie_results[0].poster_path
+                        image: data.movie_results[0].poster_path,
+                        titleId: titleId
 
                     });
+
                 })
                 .catch(err => {
                     console.log(err)
@@ -136,5 +164,21 @@ exports.getTitleDetails = (req, res, next) => {
 };
 
 exports.postDeleteTitle = (req, res, next) => {
+    const titleId = req.body.titleId;
+    titles.findById(titleId)
+    .then(title => {
+        if(!title) {
+            return next(new Error('No Title Found!'));
+        }
+        return titles.deleteOne({_id:titleId, userId: req.user._id});
+    }).then(() => {
+        console.log('TITLE DELETED!');
+        res.redirect('/my-list/:userId')
+    })
+    .catch(err => {
+        const error = new Error(err);
+        error.httpStatusCode = 500;
+        return next(error);
+    });
 
 };
