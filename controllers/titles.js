@@ -25,7 +25,6 @@ exports.getIndex = (req, res, next) => {
 };
 
 exports.searchMovie = (req, res, next) => {
-    const query = req.query
     fetch(SEARCH)
 
     .then(response => {
@@ -185,7 +184,7 @@ exports.getTitleDetails = (req, res, next) => {
                 })
                 .then(data => {
                     console.log(data);
-                    res.render('pages/mediaDetails', {
+                    res.render('pages/media-details', {
                         movieTitle: data.movie_results[0].title,
                         //tvShowResults: titles.tv_shows_results,
                         path: '/title/:id',
