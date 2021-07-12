@@ -13,10 +13,10 @@
           Movies
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="#">Top Rated</a>
-          <a class="dropdown-item" href="#">Popular</a>
+          <a class="dropdown-item" href="/top-rated">Top Rated</a>
+          <a class="dropdown-item" href="/now-playing">Now Playing</a>
           <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">Upcoming</a>
+          <a class="dropdown-item" href="/upcoming">Upcoming</a>
         </div>
       </li>
     <ul class="navbar-nav mr-auto">
@@ -31,7 +31,7 @@
         <li class="nav-item">
           <form action="/logout" method="POST">
             <input type="hidden" name="_csrf" value="<%= csrfToken %>">
-            <button type="submit">Logout</button>
+            <button class="btn btn-custom" type="submit">Logout</button>
           </form>
         </li>
         <% } %>

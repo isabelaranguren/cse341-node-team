@@ -1,4 +1,7 @@
 /* Remove the navbar's default margin-bottom and rounded borders */
+@import url('//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
+@import url('https://fonts.googleapis.com/css?family=Lato');
+
 
 * {
     box-sizing: inherit;
@@ -11,16 +14,19 @@
   
   body {
     background-color: #fcfcfc;
-    color:#3a4f5b;
-    font-family: sans-serif;
+    color: grey;
+    font-family: 'Lato', sans-serif;
     font-style: 1rem;
     line-height: 1.5;
     margin: 0 auto;
     min-height: 110vh;
-    width: 80%;
-    
   }
   
+  .movie-container div {
+    margin: 0 auto;
+    width: 80%;
+  }
+
   figure {
     margin: 0;
   }
@@ -44,14 +50,6 @@
     max-width: 80%;
   }
   
-  .search [type='search'] {
-    background-color: #131b20;
-    color: #fff;
-    padding: 0.5em 2em;
-    text-align: center;
-    width: 100%;
-  }
-  
   .movies {
       display: grid;
       grid-gap: 3em 2em;
@@ -72,7 +70,7 @@
   
   .movie__vote {
     align-items: center;
-    background-color: #f68d01;
+    background-color: #67cace;
     border-radius: 50%;
     box-shadow: 0 0 0.5em rgba(0, 0, 0, 0.192);
     display: flex;
@@ -92,3 +90,14 @@
     font-weight: 400;
     margin: 0;
   }
+
+  .navbar {
+    display: flex;
+    align-items: center;
+    padding: 20px 30px;
+    box-shadow: 0.2px 0.2px 1px grey;
+    z-index: 700;
+    width: 100%;
+    background-color: #fff;
+    margin-bottom: 50px;
+}

@@ -1,0 +1,227 @@
+@import url('https://fonts.googleapis.com/css?family=Lato');
+
+ * {
+	 margin: 0;
+	 padding: 0;
+	 border: 0;
+	 outline: 0;
+	 font-family: 'Lato', sans-serif;
+	 font-size: 100%;
+	 vertical-align: bottom;
+	 text-decoration: none;
+	 box-sizing: border-box;
+}
+ html, body {
+	 height: 100%;
+	 width: 100%;
+	 background-color: #fff;
+	 color: grey;
+}
+ p {
+	 font-size: 14px;
+	 line-height: 20px;
+}
+ img {
+	 width: 100%;
+}
+ h1, h2, h3, h4, h5, h6 {
+	 color: #020518;
+}
+ h2 {
+	 font-size: 30px;
+}
+ h3 {
+	 font-size: 14px;
+	 margin-bottom: 15px;
+}
+
+.poster-wrapper img{
+    box-shadow: 0 0 1em rgba(0, 0, 0, 0.5);
+}
+
+/*navbar*/
+ .navbar {
+	 display: flex;
+	 align-items: center;
+	 padding: 20px 30px;
+	 box-shadow: 0.2px 0.2px 1px grey;
+	 z-index: 700;
+	 width: 100%;
+	 background-color: #fff;
+	 margin-bottom: 50px;
+}
+ @media screen and (max-width: 780px) {
+	 .navbar {
+		 flex-direction: column;
+	}
+}
+ .navbar .logo {
+	 margin-right: auto;
+	 color: #3686ff;
+	 font-size: 28px;
+	 font-weight: 700;
+}
+
+ @media screen and (max-width: 780px) {
+	 .navbar .burger-menu {
+		 display: block;
+	}
+}
+ .navbar .burger-menu div {
+	 width: 35px;
+	 height: 5px;
+	 background-color: #3686ff;
+	 margin: 6px 0;
+	 transition: 0.4s;
+}
+
+ @media screen and (max-width: 780px) {
+	 .navbar .menu {
+		 height: 0px;
+		 opacity: 0;
+		 overflow: hidden;
+		 z-index: 300;
+		 display: flex;
+		 flex-direction: column;
+		 justify-content: space-around;
+		 background-color: #fff;
+		 transition: all 0.3s ease-in-out;
+	}
+}
+ .navbar .menu.is-active {
+	 opacity: 1;
+	 height: 200px !important;
+}
+ .navbar .menu a {
+	 margin: 0 20px;
+	 color: #020518;
+	 font-weight: 700;
+}
+ .navbar .menu a:hover {
+	 color: #3686ff;
+}
+/*movie-card*/
+ .movie-card {
+	 display: grid;
+	 grid-template-columns: 2fr 400px 0.5fr 400px 2fr;
+	 grid-template-areas: '. p . m .';
+}
+ @media screen and (max-width: 1024px) {
+	 .movie-card {
+		 grid-template-columns: 1fr 4fr 1fr 4fr 1fr;
+	}
+}
+ @media screen and (max-width: 780px) {
+	 .movie-card {
+		 grid-template-columns: 1fr 4fr 1fr;
+		 grid-template-areas: '. p .' '. m .';
+	}
+}
+ @media screen and (max-width: 500px) {
+	 .movie-card {
+		 grid-template-columns: 0.5fr 4fr 0.5fr;
+		 grid-template-areas: '. p .' '. m .';
+	}
+}
+ .movie-card .poster-wrapper {
+	 grid-area: p;
+}
+ .movie-card .poster-wrapper .poster {
+	 position: relative;
+	 color: #fff;
+}
+ @media screen and (max-width: 500px) {
+	 .movie-card .poster-wrapper .poster {
+		 margin-bottom: 30px;
+	}
+}
+ .movie-card .poster-wrapper .poster .release-date {
+	 position: absolute;
+	 top: 30px;
+	 left: -30px;
+	 background-color: #3686ff;
+	 padding: 10px;
+	 text-align: center;
+}
+ .movie-card .poster-wrapper .poster .release-date h2 {
+	 font-size: 42px;
+	 color: #fff;
+}
+ .movie-card .poster-wrapper .poster .release-date .divider {
+	 background-color: #fff;
+	 height: 2px;
+	 width: 20px;
+	 margin: 10px auto;
+}
+ .movie-card .poster-wrapper .poster .btn-play {
+	 position: absolute;
+	 bottom: 30px;
+	 right: -30px;
+	 background-color: #3686ff;
+	 padding: 15px;
+	 font-size: 24px;
+	 cursor: pointer;
+	 transition: all 0.4s;
+}
+ .movie-card .poster-wrapper .poster .btn-play:hover {
+	 background-color: #fdba2e;
+}
+ .movie-card .movie-info {
+	 grid-area: m;
+}
+ .movie-card .movie-info > div {
+	 margin-bottom: 30px;
+}
+ .movie-card .movie-info .header-section p {
+	 margin: 5px 0;
+}
+ .movie-card .movie-info .header-section .extra {
+	 display: flex;
+	 align-items: center;
+}
+ @media screen and (max-width: 500px) {
+	 .movie-card .movie-info .header-section .extra {
+		 display: block;
+	}
+}
+ .movie-card .movie-info .header-section .extra .ratings {
+	 margin-right: 50px;
+	 color: #fdba2e;
+}
+ .movie-card .movie-info .header-section .extra .ratings p {
+	 font-size: 18px;
+}
+ .movie-card .movie-info .header-section .extra .channels > span {
+	 margin-right: 5px;
+}
+ .movie-card .movie-info .cast-section .casts {
+	 display: flex;
+}
+ .movie-card .movie-info .cast-section .casts img {
+	 width: 40px;
+	 height: 40px;
+	 object-fit: cover;
+	 border-radius: 50%;
+	 margin-right: 15px;
+}
+ .movie-card .movie-info .gallery-section .gallery {
+	 display: grid;
+	 grid-template-columns: repeat(autofit, minmax(50px, 1fr));
+	 grid-auto-rows: 75px;
+	 grid-row-gap: 10px;
+	 grid-column-gap: 10px;
+	 grid-auto-flow: dense;
+}
+ .movie-card .movie-info .gallery-section .gallery .small {
+	 grid-column: span 1;
+}
+ .movie-card .movie-info .gallery-section .gallery .medium {
+	 grid-column: span 3;
+     height: 250%;
+}
+ .movie-card .movie-info .gallery-section .gallery img {
+	 object-fit: cover;
+	 width: 100%;
+	 height: 100%;
+}
+ 

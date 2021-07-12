@@ -1,6 +1,7 @@
 <%- include('../includes/head.ejs') %>
 <%- include('../includes/header.ejs') %>
 <link rel="stylesheet" href="css/main.css">
+
 </head>
 <body>
     <%- include('../includes/navigation.ejs') %>
@@ -16,16 +17,14 @@
           </div>
           </div>
           </div>
+
         <div class="movies mt-5">
-        <% for (let popularMovie of popularMovieList) { %>
+        <% for (let upcoming of upcomingList) { %>
             <figure class ="movie__figure">
-            <a href="/title/<%= popularMovie.id %>">
-                <img class="movie__poster" src="<%= 'https://image.tmdb.org/t/p/w300_and_h450_bestv2' + popularMovie.poster_path %>" alt="Movie Poster">
+            <a href="/title/<%= upcoming.id %>">
+                <img class="movie__poster" src="<%= 'https://image.tmdb.org/t/p/w300_and_h450_bestv2' + upcoming.poster_path %>" alt="Movie Poster">
             </a>
-            <figcaption>
-                <span class="movie__vote"><% popularMovie.vote_average %></span>  
-              </figcaption>
-              <h2 class ="movie__title"> <%= popularMovie.title %> </h2>
+              <h2 class ="movie__title"> <%= upcoming.title %> </h2>
             </figure>
         <% } %>
     </div>
