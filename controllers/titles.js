@@ -2,6 +2,10 @@ const titles = require('../models/titles');
 const Title = require('../models/titles');
 const fetch = require('node-fetch');
 
+
+const SEARCH ="https://api.themoviedb.org/3/search/movie?&api_key=f4278fc5b9413965242b5e22893f2738&query=";
+
+
 exports.getIndex = (req, res, next) => {
     const page = +req.query.page || 1;
     const offset = 10 * (page - 1);
@@ -25,10 +29,19 @@ exports.getIndex = (req, res, next) => {
         })
 };
 
-exports.getNewest = (req, res, next) => {
-    const page = req.params.page || 1;
-    const offset = 10 * (page - 1);
-    // fetch(`https://api.themoviedb.org/3/movie/top_rated?api_key=f4278fc5b9413965242b5e22893f273&language=en-US&${page}`)
+exports.getSearchMovie = (req, res, next) => {
+    fetch(SEARCH)
+
+    .then(response => {
+        return response.json();
+    })
+    .then(data => {
+        })
+
+    .catch(err => {
+        console.log(err);
+    })
+
 
 
 };
@@ -142,12 +155,13 @@ exports.getTitleDetails = (req, res, next) => {
                         pageTitle: 'Movie Details',
                         movieDetails: data.movie_results[0].overview,
                         ratings: data.movie_results[0].vote_average,
-                        //runtime: data.movie_results[0].runtime,
+                        runtime: data.movie_results[0].runtime,
                         release: data.movie_results[0].release_date,
                         image: data.movie_results[0].poster_path,
                         titleId: titleId
 
                     });
+                    
 
                 })
                 .catch(err => {

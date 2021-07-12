@@ -6,7 +6,7 @@ const isAuth = require('../middleware/isAuth');
 
 router.get('/', titleController.getIndex);
 
-router.get('/newest', titleController.getNewest);
+router.get('/SearchMovie', titleController.getSearchMovie);
 
 router.get('/popular', titleController.getPopular);
 

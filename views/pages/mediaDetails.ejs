@@ -1,25 +1,51 @@
 <%- include('../includes/head.ejs') %>
 <%- include('../includes/header.ejs') %>
-</head>
+<link rel="stylesheet" href="css/movie-card.css">
 
-<body class="container">
+
+
+</head>
+<body>
     <%- include('../includes/navigation'); -%>
-    <h1 class="display-4"><%= movieTitle %></h1>
-    <img src="<%= 'http://image.tmdb.org/t/p/w500' + image %>" alt="Movie Poster">
+   
+    <h1 class="movie-title"><%= movieTitle %></h1>
+    <img class="movie-card-img" src="<%= 'http://image.tmdb.org/t/p/w500' + image %>" alt="Movie Poster">
     <p><%= movieDetails %></p>
-    <br>
     <p> Movie Rating: </p>
     <p><%= ratings %></p>
-    <br>
-    <p> Release Date: </p>
     <p><%= release %></p>
+    <div class="movie-card">
+        <div class="poster-wrapper">
+          <div class="poster">
+            <img class="movie-card-img" src="<%= 'http://image.tmdb.org/t/p/w500' + image %>" alt="Movie Poster">
+            <div class="btn-play">&#9655;</div>
+          </div>
+        </div>
+        <div class="movie-info">
+            <div class="header-section">
+              <h2>MOONLIGHT</h2>
+              <h2 ><%= movieTitle %></h2>
+              <p>Same-sex / American / English / 2016 / 1h59m</p>
+              <div class="extra">
+                <div class="ratings"> <p><%= ratings %></p></div>
+                <!-- <p class="channels"><span>Hulu</span><span>Youtube</span><span>BBC</span></p> -->
+              </div>
+            </div>
+            <div class="synopsis-section">
+                <h3>SYNOPSIS</h3>
+                <p><%= movieDetails %></p>
+              </div>
+            </div>
+          </div>
+          <!-- end movie-card -->
+        <!-- </div> -->
+
     <form action="/add-title" method="POST">
         <input type="hidden" name="_csrf" value="<%= csrfToken %>">
         <input type="hidden" name="movieTitle" value="<%= movieTitle %>">
         <input type="hidden" name="release" value="<%= release %>">
         <input type="hidden" name="image" value="<%= image %>">
         <input type="hidden" name="titleId" value="<%= titleId %>">
-        <button type="submit" value="<%= csrfToken %>">Add to List</button>
+        <button class="watch" type="submit" value="<%= csrfToken %>">Add to List</button>
     </form>
-
     <%- include('../includes/end.ejs') %>
