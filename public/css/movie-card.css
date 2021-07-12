@@ -154,6 +154,7 @@
 	 margin: 10px auto;
 }
  .movie-card .poster-wrapper .poster .btn-play {
+     color: #fff;
 	 position: absolute;
 	 bottom: 30px;
 	 right: -30px;

@@ -4,7 +4,6 @@
 </head>
 <body>
     <%- include('../includes/navigation'); -%>
-    <!-- <div class="container"> -->
         <div class="movie-card">
             <div class="poster-wrapper">
               <div class="poster">
@@ -15,11 +14,10 @@
                     <input type="hidden" name="release" value="<%= release %>">
                     <input type="hidden" name="image" value="<%= image %>">
                     <input type="hidden" name="titleId" value="<%= titleId %>">
-                    <button class="btn-play" type="submit" value="<%= csrfToken %>">&#43;</button>
+                    <button class="btn-play" type="submit" value="<%= csrfToken %>">ADD</button>
                 </form>
               </div>
             </div>
-            <!-- end poster-wrapper -->
             <div class="movie-info">
               <div class="header-section">
                 <h2><%= movieTitle %></h2>
@@ -32,8 +30,6 @@
               <div class="cast-section">
                 <h3>THE CAST</h3>
                 <div class="casts">
-                  <img src="https://m.media-amazon.com/images/M/MV5BNDg4OTczODE5Nl5BMl5BanBnXkFtZTcwMjgwMjA0Mg@@._V1_UY44_CR3,0,32,44_AL_.jpg" alt="avatar" />
-                  <img src="https://m.media-amazon.com/images/M/MV5BOTkyNDE4NTA4NF5BMl5BanBnXkFtZTgwOTY3ODQ1MDI@._V1_UY44_CR3,0,32,44_AL_.jpg" alt="avatar" />
                   <img src="https://m.media-amazon.com/images/M/MV5BNzYwMTQ1ODY1MV5BMl5BanBnXkFtZTgwMTU5NDc5OTE@._V1_UY44_CR17,0,32,44_AL_.jpg" alt="avatar" />
                   <img src="https://m.media-amazon.com/images/M/MV5BMTEyMDA1MzE0NjdeQTJeQWpwZ15BbWU3MDM0NzA4MDQ@._V1_UY44_CR1,0,32,44_AL_.jpg" alt="avatar" />
                 </div>
@@ -46,7 +42,7 @@
                 <h3>VIDEO / PICTURE</h3>
                 <div class="gallery">
                     <!-- <div class="medium"><img src="<%= 'http://image.tmdb.org/t/p/w500' + image %>" alt="Movie Poster"></div> -->
-                  <div class="medium"><img src="<%= 'http://image.tmdb.org/t/p/w500' + gallery %>" alt="media" /></div>
+                  <div class="small"><img src="<%= 'http://image.tmdb.org/t/p/w300' + gallery %>" alt="media" /></div>
                 </div>
               </div>
             </div>
@@ -54,10 +50,4 @@
           <!-- end movie-card -->
         <!-- </div> -->
         </main>
-   
-
-
-          <!-- end movie-card -->
-        <!-- </div> -->
-
-    <%- include('../includes/end.ejs') %>
+<%- include('../includes/end.ejs') %>
