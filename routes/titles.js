@@ -27,3 +27,5 @@ router.get('/search', titleController.getSearch);
 router.post('/delete-title', isAuth, titleController.postDeleteTitle);
 
 module.exports = router;
+
+
