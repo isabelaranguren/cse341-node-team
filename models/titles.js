@@ -8,6 +8,7 @@ const listTitlesSchema = new Schema({
             id: { type: Number, required: true },
             poster_path: { type: String, required: true },
             release: { type: Date, required: true },
+            userReview: {type: String},
         }
     ],
 

@@ -1,4 +1,4 @@
-// const titles = require('../models/titles');
+const titles = require('../models/titles');
 const TitleList = require('../models/titles');
 const fetch = require('node-fetch');
 const User = require('../models/user');
@@ -122,7 +122,8 @@ exports.getMylist = (req, res, next) => {
                 path: '/my-list/:userId',
                 pageTitle: "My List",
                 titles:titles,
-                user: user
+                user: user,
+                userReview: userReview
                 
             });
         });
@@ -156,6 +157,7 @@ exports.postList = (req, res, next) => {
                 id: titleId,
                 poster_path: image,
                 release: release,
+                userReview: userReview,
             }],
             userId: req.user
         });
