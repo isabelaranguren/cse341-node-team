@@ -1,32 +1,103 @@
 /* Remove the navbar's default margin-bottom and rounded borders */
+@import url('//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
+@import url('https://fonts.googleapis.com/css?family=Lato');
 
-html {
-    font-size: 14px;
-    color: rgb(16, 22, 41);
-}
 
-*{
-    font-family: 'Poppins', sans-serif;
-}
+* {
+    box-sizing: inherit;
+  }
+  
+  html {
+    box-sizing: border-box;
+    height: 100%;
+  }
+  
+  body {
+    background-color: #fcfcfc;
+    color: grey;
+    font-family: 'Lato', sans-serif;
+    font-style: 1rem;
+    line-height: 1.5;
+    margin: 0 auto;
+    min-height: 110vh;
+  }
+  
+  .movie-container div {
+    margin: 0 auto;
+    width: 80%;
+  }
 
-.card-text {
-    font-size: 14px;
-}
-
-.movieBoard {
+  figure {
+    margin: 0;
+  }
+  
+  img {
+    height: auto;
+    max-width: 100%;
+    vertical-align: middle;
+  }
+  
+  input {
+    border: 0;
+    font: inherit;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .search {
+    font-size: 1.5rem;
+    margin: 1.5em auto 3em;
+    max-width: 80%;
+  }
+  
+  .movies {
+      display: grid;
+      grid-gap: 3em 2em;
+      grid-template-columns: repeat(auto-fill, minmax(12em, 1fr));
+      list-style: none;
+      margin: 0;
+      padding: 0;
+  }
+  
+  .movie__figure {
+    position: relative;
+  }
+  
+  .movie__poster {
+    box-shadow: 0 0 1em rgba(0, 0, 0, 0.5);
+    margin-bottom: 0.5em;
+  }
+  
+  .movie__vote {
+    align-items: center;
+    background-color: #67cace;
+    border-radius: 50%;
+    box-shadow: 0 0 0.5em rgba(0, 0, 0, 0.192);
+    display: flex;
+    height: 2.25em;
+    justify-content: center;
+    padding: 0.5em;
+    position: absolute;
+    right: 0;
     text-align: center;
+    top: 75%;
+    transform: translateX(50%);
+    width: 2.25em;
+  }
+  
+  .movie__title {
+    font-size: 0.875rem;
+    font-weight: 400;
+    margin: 0;
+  }
+
+  .navbar {
+    display: flex;
+    align-items: center;
+    padding: 20px 30px;
+    box-shadow: 0.2px 0.2px 1px grey;
+    z-index: 700;
+    width: 100%;
+    background-color: #fff;
+    margin-bottom: 50px;
 }
-
-@media (min-width: 750px) {
-    .movieBoard {
-        display: grid;
-        /* grid-template-columns: repeat(2, 1fr); */
-    }
-
-    .movieCard img, .card {
-        width: 10rem;
-    }
-
-
-}
-

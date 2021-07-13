@@ -6,7 +6,6 @@ exports.getIndex = (req, res, next) => {
     const page = +req.query.page || 1;
     const offset = 10 * (page - 1);
     fetch(`https://api.themoviedb.org/3/movie/popular?api_key=f4278fc5b9413965242b5e22893f2738&language=en-US&page=${page}`)
-        // https://api.themoviedb.org/3/movie/{movie_id}/images?api_key=<<api_key>>&language=en-US
         .then(response => response.json())
         .then(titles => {
             // console.log(titles)
@@ -25,19 +24,89 @@ exports.getIndex = (req, res, next) => {
         })
 };
 
-exports.getNewest = (req, res, next) => {
-    const page = req.params.page || 1;
+exports.searchMovie = (req, res, next) => {
+    const query = req.query
+    fetch(SEARCH)
+
+    .then(response => {
+        return response.json();
+    })
+    .then(data => {
+        })
+
+    .catch(err => {
+        console.log(err);
+    })
+};
+
+exports.getUpcoming = (req, res, next) => {
+    const page = +req.query.page || 1;
     const offset = 10 * (page - 1);
-    // fetch(`https://api.themoviedb.org/3/movie/top_rated?api_key=f4278fc5b9413965242b5e22893f273&language=en-US&${page}`)
-
+    fetch(`https://api.themoviedb.org/3/movie/upcoming?api_key=f4278fc5b9413965242b5e22893f2738&language=en-US&page=${page}`)
+        .then(response => response.json())
+        .then(titles => {
+            // console.log(titles)
+            res.render('pages/upcoming', {
+                upcomingList: titles.results,
+                currentPage: page,
+                hasPrevious: page > 1,
+                previousPage: page - 1,
+                nextPage: page + 1,
+                path: '/',
+                pageTitle: 'Upcoming Movies'
+            });
+        })
+        .catch(err => {
+            console.log(err);
+        })
 
 };
 
-exports.getPopular = (req, res, next) => {
+
+exports.getNowPlaying = (req, res, next) => {
+    const page = +req.query.page || 1;
+    const offset = 10 * (page - 1);
+    fetch(`https://api.themoviedb.org/3/movie/now_playing?api_key=f4278fc5b9413965242b5e22893f2738&language=en-US&page=${page}`)
+        .then(response => response.json())
+        .then(titles => {
+            // console.log(titles)
+            res.render('pages/now-playing', {
+                nowPlayingList: titles.results,
+                currentPage: page,
+                hasPrevious: page > 1,
+                previousPage: page - 1,
+                nextPage: page + 1,
+                path: '/',
+                pageTitle: 'Now Playing'
+            });
+        })
+        .catch(err => {
+            console.log(err);
+        })
 
 };
+
 
 exports.getTopRated = (req, res, next) => {
+    const page = +req.query.page || 1;
+    const offset = 10 * (page - 1);
+    fetch(`https://api.themoviedb.org/3/movie/top_rated?api_key=f4278fc5b9413965242b5e22893f2738&language=en-US&page=${page}`)
+        .then(response => response.json())
+        .then(titles => {
+            // console.log(titles)
+            res.render('pages/top-rated', {
+                topRatedList: titles.results,
+                currentPage: page,
+                hasPrevious: page > 1,
+                previousPage: page - 1,
+                nextPage: page + 1,
+                path: '/',
+                pageTitle: 'Top Rated'
+            });
+        })
+        .catch(err => {
+            console.log(err);
+        })
 
 };
 
@@ -60,25 +129,6 @@ exports.getMylist = (req, res, next) => {
 });
 };
 
-
-// exports.getCart = (req, res, next) => {
-//     req.user
-//       .populate('cart.items.productId')
-//       .execPopulate()
-//       .then(user => {
-//         const products = user.cart.items;
-//         res.render('shop/cart', {
-//           path: '/cart',
-//           pageTitle: 'Your Cart',
-//           products: products,
-//         });
-//       })
-//       .catch(err => {
-//         const error = new Error(err);
-//         error.httpStatusCode = 500;
-//         return next(error);
-//       });
-//   };
 
 exports.postDeleteList = (req, res, next) => {
 
@@ -145,12 +195,13 @@ exports.getTitleDetails = (req, res, next) => {
                         pageTitle: 'Movie Details',
                         movieDetails: data.movie_results[0].overview,
                         ratings: data.movie_results[0].vote_average,
-                        //runtime: data.movie_results[0].runtime,
                         release: data.movie_results[0].release_date,
                         image: data.movie_results[0].poster_path,
+                        gallery: data.movie_results[0].backdrop_path,
                         titleId: titleId
 
                     });
+                    
 
                 })
                 .catch(err => {

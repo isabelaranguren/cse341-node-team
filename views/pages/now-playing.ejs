@@ -16,16 +16,14 @@
           </div>
           </div>
           </div>
+
         <div class="movies mt-5">
-        <% for (let popularMovie of popularMovieList) { %>
+        <% for (let nowPlaying of nowPlayingList) { %>
             <figure class ="movie__figure">
-            <a href="/title/<%= popularMovie.id %>">
-                <img class="movie__poster" src="<%= 'https://image.tmdb.org/t/p/w300_and_h450_bestv2' + popularMovie.poster_path %>" alt="Movie Poster">
+            <a href="/title/<%= nowPlaying.id %>">
+                <img class="movie__poster" src="<%= 'https://image.tmdb.org/t/p/w300_and_h450_bestv2' + nowPlaying.poster_path %>" alt="Movie Poster">
             </a>
-            <figcaption>
-                <span class="movie__vote"><% popularMovie.vote_average %></span>  
-              </figcaption>
-              <h2 class ="movie__title"> <%= popularMovie.title %> </h2>
+              <h2 class ="movie__title"> <%= nowPlaying.title %> </h2>
             </figure>
         <% } %>
     </div>
@@ -37,7 +35,6 @@
                 <a class="page-link" href="?page=<%= previousPage %>"tabindex="-1">Previous</a>
             </li> -->
         <% } %>
-
         <% if (hasPrevious) { %>
             <li class="page-item"><a class="page-link" href="?page=<%= previousPage %>" class=""><%= previousPage %></a></li>
         <% } %>
