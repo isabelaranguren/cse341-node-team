@@ -1,7 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <a class="navbar-brand" href="/">Movie List</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -10,8 +9,7 @@
         <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-          aria-haspopup="true" aria-expanded="false">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Movies
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -21,19 +19,6 @@
           <a class="dropdown-item" href="/upcoming">Upcoming</a>
         </div>
       </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-          aria-haspopup="true" aria-expanded="false">
-          TV Shows
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="#">Top Rated</a>
-          <a class="dropdown-item" href="#">Popular</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">Upcoming</a>
-        </div>
-      </li>
-    </ul>
     <ul class="navbar-nav mr-auto">
       <% if(!isAuthenticated) { %>
       <li class="nav-item">
@@ -43,13 +28,6 @@
         <a class="nav-link left" href="/signup">Signup</a>
       </li> -->
       <% } else { %>
-      <li class="nav-item">
-        <form action="/logout" method="POST">
-          <input type="hidden" name="_csrf" value="<%= csrfToken %>">
-          <button type="submit">Logout</button>
-        </form>
-      </li>
-      <% } %>
         <li class="nav-item">
           <form action="/logout" method="POST">
             <input type="hidden" name="_csrf" value="<%= csrfToken %>">
@@ -58,15 +36,4 @@
         </li>
         <% } %>
     </ul>
-    <!--search bar-->
-    <div class="d-flex justify-content-center align-items-center" id="search-bar">
-      <div class="mx-2 row">
-        <form id="search" class="form-inline" action="/search" method="POST">
-          <input type="text" name="title" class="form-control mb-2 mr-sm-2" id="search-input"
-            placeholder="search name ..." value="">
-          <input type="hidden" name="_csrf" value="<%= csrfToken %>">
-          <button type="submit" class="btn btn-primary mb-2" id="search-btn">Search</button>
-        </form>
-      </div>
-    </div>
 </nav>

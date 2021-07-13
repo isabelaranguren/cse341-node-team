@@ -111,21 +111,21 @@ exports.getTopRated = (req, res, next) => {
 
 exports.getMylist = (req, res, next) => {
     //maybe should be like getProducts in the shop
-    titles.find({ userId: req.user._id })
-        .then(titles => {
-            console.log(titles[0]);
-            res.render('pages/userList', {
-                path: '/my-list/:userId',
-                pageTitle: "My List",
-                titles: titles
+    titles.find({userId: req.user._id})
+    .then(titles => {
+        console.log(titles[0]);
+        res.render('pages/userList', {
+            path: '/my-list/:userId',
+            pageTitle: "My List",
+            titles:titles
 
-            });
-        })
-        .catch(err => {
-            const error = new Error(err);
-            error.httpStatusCode = 500;
-            return next(error);
-        });
+    });
+})
+.catch(err => {
+  const error = new Error(err);
+  error.httpStatusCode = 500;
+  return next(error);
+});
 };
 
 
@@ -140,17 +140,17 @@ exports.postList = (req, res, next) => {
     const image = req.body.image;
     //make sure movie doesnt already exist in database
     req.user
-    const newTitle = new Title({
-        titles: [{
+        const newTitle = new Title({
+            titles: [{
 
-            title: title,
-            id: titleId,
-            poster_path: image,
-            release: release,
-        }],
-        userId: req.user
-    });
-    newTitle
+                title: title,
+                id: titleId,
+                poster_path: image,
+                release: release,
+            }],
+            userId: req.user
+        });
+        newTitle
         .save()
         .then(result => {
             console.log('Created Title!');
@@ -216,70 +216,19 @@ exports.getTitleDetails = (req, res, next) => {
 exports.postDeleteTitle = (req, res, next) => {
     const titleId = req.body.titleId;
     titles.findById(titleId)
-        .then(title => {
-            if (!title) {
-                return next(new Error('No Title Found!'));
-            }
-            return titles.deleteOne({ _id: titleId, userId: req.user._id });
-        }).then(() => {
-            console.log('TITLE DELETED!');
-            res.redirect('/my-list/:userId')
-        })
-        .catch(err => {
-            const error = new Error(err);
-            error.httpStatusCode = 500;
-            return next(error);
-        });
+    .then(title => {
+        if(!title) {
+            return next(new Error('No Title Found!'));
+        }
+        return titles.deleteOne({_id:titleId, userId: req.user._id});
+    }).then(() => {
+        console.log('TITLE DELETED!');
+        res.redirect('/my-list/:userId')
+    })
+    .catch(err => {
+        const error = new Error(err);
+        error.httpStatusCode = 500;
+        return next(error);
+    });
 
-};
-
-exports.postSearch = async (req, res, next) => {
-    const page = +req.query.page || 1;
-    const query = req.body.title;
-    try {
-        const response = await fetch(`https://api.themoviedb.org/3/search/movie?api_key=f4278fc5b9413965242b5e22893f2738&query=${query}&language=en-US&page=${page}`);
-        const data = await response.json();
-        res.render('pages/search', {
-            popularMovieList: data.results,
-            currentPage: page,
-            hasPreviousPage: page > 1,
-            hasNextPage: page < data.total_pages,
-            previousPage: page - 1,
-            nextPage: page + 1,
-            lastPage: data.total_pages,
-            path: '/',
-            pageTitle: 'Home',
-            query
-        });
-
-    } catch (err) {
-        throw err;
-    }
-};
-
-exports.getSearch = async (req, res, next) => {
-    const page = +req.query.page || 1;
-    const query = req.query.title;
-
-    try {
-        const response = await fetch(`https://api.themoviedb.org/3/search/movie?api_key=f4278fc5b9413965242b5e22893f2738&query=${query}&language=en-US&page=${page}`);
-        const data = await response.json();
-        console.log(data);
-        res.render('pages/search', {
-            popularMovieList: data.results,
-            currentPage: page,
-            hasPreviousPage: page > 1,
-            hasNextPage: page < data.total_pages,
-            previousPage: page - 1,
-            nextPage: page + 1,
-            lastPage: data.total_pages,
-            path: '/',
-            pageTitle: 'Home',
-            query,
-
-        });
-
-    } catch (err) {
-        throw err;
-    }
 };
