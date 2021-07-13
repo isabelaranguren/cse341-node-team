@@ -1,0 +1,63 @@
+<%- include('../includes/head.ejs') %>
+<%- include('../includes/header.ejs') %>
+</head>
+
+<body>
+    <!-- navigation -->
+    <%- include('../includes/navigation.ejs') %>
+
+    <div class="container mt-5">
+
+        <div class="container mt-5">
+            <div class="movieBoard row d-flex justify-content-center">
+                <% for (let popularMovie of popularMovieList) { %>
+                <div class="movieCard card">
+                    <a href="/title/<%= popularMovie.id %>">
+                        <img class="card-img-top"
+                            src="<%= 'http://image.tmdb.org/t/p/w500' + popularMovie.poster_path %>" alt="Movie Poster">
+                    </a>
+                    <div class="card-body">
+                        <p hidden><%= popularMovie.imdb_id %></p>
+                        <h4 class="card-text"><%= popularMovie.title %> </h4>
+                    </div>
+                </div>
+                <% } %>
+            </div>
+        </div>
+
+        <!-- PREVIOUS BUTTON DOES NOT WORK -->
+        <nav class="mt-5" aria-label="Page navigation">
+            <ul class="pagination justify-content-center">
+
+                <% if (currentPage !== 1 && previousPage !== 1) { %>
+                <li class="page-item"><a class="page-link" href="?title=<%= query %>&page=1" class="">1</a>
+                </li>
+                <% } %>
+
+                <% if (hasPreviousPage) { %>
+                <li class="page-item"><a class="page-link" href="?title=<%= query %>&page=<%= previousPage %>"
+                        class=""><%= previousPage %></a>
+                </li>
+                <% } %>
+
+                <li class="page-item"><a class="page-link"
+                        href="?title=<%= query %>&page=<%= currentPage %>"><%= currentPage %></a>
+                </li>
+
+                <% if (hasNextPage) { %>
+                <li class="page-item"><a class="page-link" href="?title=<%= query %>&page=<%= nextPage %>"
+                        class=""><%= nextPage %></a>
+                </li>
+                <% } %>
+
+                <% if (lastPage !== currentPage && nextPage !== lastPage) { %>
+                <li class="page-item"><a class="page-link" href="?title=<%= query %>&page=<%= lastPage %>"
+                        class=""><%= lastPage %></a>
+                </li>
+                <% } %>
+            </ul>
+        </nav>
+    </div>
+    </div>
+
+    <%- include('../includes/end.ejs') %>
