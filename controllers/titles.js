@@ -112,17 +112,6 @@ exports.getTopRated = (req, res, next) => {
 
 exports.getMylist = (req, res, next) => {
     //maybe should be like getProducts in the shop
-<<<<<<< HEAD
-    TitleList.find({userId: req.user._id})
-    .then(titles => {
-        console.log(titles[0]);
-        res.render('pages/userList', {
-            path: '/my-list/:userId',
-            pageTitle: "My List",
-            titles:titles
-
-    });
-=======
     User.find({firstName: req.user.firstName})
     .then(user => {
         
@@ -137,7 +126,6 @@ exports.getMylist = (req, res, next) => {
                 
             });
         });
->>>>>>> origin/Spencer
 })
 .catch(err => {
   const error = new Error(err);
