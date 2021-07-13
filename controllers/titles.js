@@ -122,8 +122,7 @@ exports.getMylist = (req, res, next) => {
                 path: '/my-list/:userId',
                 pageTitle: "My List",
                 titles:titles,
-                user: user,
-                userReview: userReview
+                user: user
                 
             });
         });
@@ -134,7 +133,6 @@ exports.getMylist = (req, res, next) => {
   return next(error);
 });
 };
-
 
 exports.postDeleteList = (req, res, next) => {
 
@@ -242,4 +240,56 @@ exports.postDeleteTitle = (req, res, next) => {
         return next(error);
     });
 
+};
+
+
+exports.postSearch = async (req, res, next) => {
+    const page = +req.query.page || 1;
+    const query = req.body.title;
+    try {
+        const response = await fetch(`https://api.themoviedb.org/3/search/movie?api_key=f4278fc5b9413965242b5e22893f2738&query=${query}&language=en-US&page=${page}`);
+        const data = await response.json();
+        res.render('pages/search', {
+            popularMovieList: data.results,
+            currentPage: page,
+            hasPreviousPage: page > 1,
+            hasNextPage: page < data.total_pages,
+            previousPage: page - 1,
+            nextPage: page + 1,
+            lastPage: data.total_pages,
+            path: '/',
+            pageTitle: 'Home',
+            query
+        });
+
+    } catch (err) {
+        throw err;
+    }
+};
+
+exports.getSearch = async (req, res, next) => {
+    const page = +req.query.page || 1;
+    const query = req.query.title;
+
+    try {
+        const response = await fetch(`https://api.themoviedb.org/3/search/movie?api_key=f4278fc5b9413965242b5e22893f2738&query=${query}&language=en-US&page=${page}`);
+        const data = await response.json();
+        console.log(data);
+        res.render('pages/search', {
+            popularMovieList: data.results,
+            currentPage: page,
+            hasPreviousPage: page > 1,
+            hasNextPage: page < data.total_pages,
+            previousPage: page - 1,
+            nextPage: page + 1,
+            lastPage: data.total_pages,
+            path: '/',
+            pageTitle: 'Home',
+            query,
+
+        });
+
+    } catch (err) {
+        throw err;
+    }
 };
