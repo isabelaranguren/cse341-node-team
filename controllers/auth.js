@@ -6,18 +6,6 @@ const bcrypt = require('bcryptjs');
 
 require('dotenv').config();
 
-//THIS IS USING DOTENV
-// const WEBSITE_URL = process.env.WEBSITE_URL;
-
-//ARE WE GOING TO USE SENDGRID TO HAVE USERS SIGN UP?
-// const nodemailer = require('nodemailer');
-// const sendgridTransport = require('nodemailer-sendgrid-transport');
-// const transporter = nodemailer.createTransport(sendgridTransport({
-//     auth: {    
-//       api_key: process.env.SENGRID_API
-//     }
-//   }));
-
 const { validationResult } = require('express-validator');
 
 exports.getLogin = (req, res, next) => {
@@ -172,13 +160,6 @@ exports.postSignup = (req, res, next) => {
             })
             .then(result => {
              res.redirect('/login');
-            //  return transporter.sendMail({
-            //     to: email,
-            //     from: 'cro18022@byui.edu',
-            //     subject: 'Sign-up suceeded',
-            //     html: '<h1>Thank you for signing up </h1>'
-            //   });
-              
             })
             .catch(err => {
              const error = new Error(err);

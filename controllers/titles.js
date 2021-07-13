@@ -1,8 +1,9 @@
 // const titles = require('../models/titles');
 const TitleList = require('../models/titles');
 const fetch = require('node-fetch');
+const User = require('../models/user');
 
-exports.getIndex = (req, res, next) => {
+exports.getIndex = (req, res, next) => { 
     const page = +req.query.page || 1;
     const offset = 10 * (page - 1);
     fetch(`https://api.themoviedb.org/3/movie/popular?api_key=f4278fc5b9413965242b5e22893f2738&language=en-US&page=${page}`)
@@ -25,7 +26,6 @@ exports.getIndex = (req, res, next) => {
 };
 
 exports.searchMovie = (req, res, next) => {
-    const query = req.query
     fetch(SEARCH)
 
     .then(response => {
@@ -112,6 +112,7 @@ exports.getTopRated = (req, res, next) => {
 
 exports.getMylist = (req, res, next) => {
     //maybe should be like getProducts in the shop
+<<<<<<< HEAD
     TitleList.find({userId: req.user._id})
     .then(titles => {
         console.log(titles[0]);
@@ -121,6 +122,22 @@ exports.getMylist = (req, res, next) => {
             titles:titles
 
     });
+=======
+    User.find({firstName: req.user.firstName})
+    .then(user => {
+        
+        titles.find({userId: req.user._id})
+        .then(titles => {
+            console.log(titles[0]);
+            res.render('pages/userList', {
+                path: '/my-list/:userId',
+                pageTitle: "My List",
+                titles:titles,
+                user: user
+                
+            });
+        });
+>>>>>>> origin/Spencer
 })
 .catch(err => {
   const error = new Error(err);
@@ -188,7 +205,7 @@ exports.getTitleDetails = (req, res, next) => {
                 })
                 .then(data => {
                     console.log(data);
-                    res.render('pages/mediaDetails', {
+                    res.render('pages/media-details', {
                         movieTitle: data.movie_results[0].title,
                         //tvShowResults: titles.tv_shows_results,
                         path: '/title/:id',
