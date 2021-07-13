@@ -1,13 +1,7 @@
 <%- include('../includes/head.ejs') %>
-</head>
-
-<body class="container">
-
-
-    <%- include('../includes/head.ejs') %>
+<%- include('../includes/header.ejs') %>
     <link rel="stylesheet" href="/css/main.css">
     </head>
-
     <body>
         <%- include('../includes/navigation.ejs') %>
         <main>
@@ -16,8 +10,7 @@
                     <% titles.forEach(p => { %>
                         <li class="cart__item">
                             <h1><%= p.titles[0].title %></h1>
-                            <img src="<%= 'http://image.tmdb.org/t/p/w500' + p.titles[0].poster_path %>" alt="Movie Poster">
-                            
+                            <img src="<%= 'http://image.tmdb.org/t/p/w200' + p.titles[0].poster_path %>" alt="Movie Poster">
                             <form action="/delete-title" method="POST">
                                 <input type="hidden" value="<%= p._id %>" name="titleId">
                                 <input type="hidden" name="_csrf" value="<%= csrfToken %>">
