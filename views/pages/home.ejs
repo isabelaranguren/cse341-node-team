@@ -5,17 +5,6 @@
 <body>
     <%- include('../includes/navigation.ejs') %>
     <div class="movie-container">
-    <div class="container mt-5">
-        <div class="d-flex justify-content-center align-items-center" id="search-bar">
-          <div class="mx-2 row">
-            <form id="search" class="form-inline">
-              <label class="sr-only" for="inlineFormInputName2">Name</label>
-              <input type="text" class="form-control mb-2 mr-sm-2" id="search-input" placeholder="search name ...">
-              <button type="submit" class="btn btn-primary mb-2" id="search-btn">Search</button>
-            </form>
-          </div>
-          </div>
-          </div>
         <div class="movies mt-5">
         <% for (let popularMovie of popularMovieList) { %>
             <figure class ="movie__figure">

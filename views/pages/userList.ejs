@@ -5,6 +5,7 @@
     <body>
         <%- include('../includes/navigation.ejs') %>
         <main>
+            <h1><%= user[0].firstName %>'s List</h1>
             <% if (titles.length > 0) { %>
                 <ul class="cart__item-list">
                     <% titles.forEach(p => { %>
@@ -19,7 +20,6 @@
                         </li>
                     <% }) %>
                 </ul>
-                <hr>
                 
             <% } else { %>
                 <h1>No Media added!</h1>

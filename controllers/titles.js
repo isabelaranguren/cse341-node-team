@@ -1,6 +1,8 @@
 const titles = require('../models/titles');
 const Title = require('../models/titles');
 const fetch = require('node-fetch');
+const User = require('../models/user');
+
 
 exports.getIndex = (req, res, next) => {
     const page = +req.query.page || 1;
@@ -111,15 +113,20 @@ exports.getTopRated = (req, res, next) => {
 
 exports.getMylist = (req, res, next) => {
     //maybe should be like getProducts in the shop
-    titles.find({userId: req.user._id})
-    .then(titles => {
-        console.log(titles[0]);
-        res.render('pages/userList', {
-            path: '/my-list/:userId',
-            pageTitle: "My List",
-            titles:titles
-
-    });
+    User.find({firstName: req.user.firstName})
+    .then(user => {
+        
+        titles.find({userId: req.user._id})
+        .then(titles => {
+            console.log(titles[0]);
+            res.render('pages/userList', {
+                path: '/my-list/:userId',
+                pageTitle: "My List",
+                titles:titles,
+                user: user
+                
+            });
+        });
 })
 .catch(err => {
   const error = new Error(err);
@@ -127,7 +134,6 @@ exports.getMylist = (req, res, next) => {
   return next(error);
 });
 };
-
 
 exports.postDeleteList = (req, res, next) => {
 
@@ -232,3 +238,56 @@ exports.postDeleteTitle = (req, res, next) => {
     });
 
 };
+
+
+exports.postSearch = async (req, res, next) => {
+    const page = +req.query.page || 1;
+    const query = req.body.title;
+    try {
+        const response = await fetch(`https://api.themoviedb.org/3/search/movie?api_key=f4278fc5b9413965242b5e22893f2738&query=${query}&language=en-US&page=${page}`);
+        const data = await response.json();
+        res.render('pages/search', {
+            popularMovieList: data.results,
+            currentPage: page,
+            hasPreviousPage: page > 1,
+            hasNextPage: page < data.total_pages,
+            previousPage: page - 1,
+            nextPage: page + 1,
+            lastPage: data.total_pages,
+            path: '/',
+            pageTitle: 'Home',
+            query
+        });
+
+    } catch (err) {
+        throw err;
+    }
+};
+
+exports.getSearch = async (req, res, next) => {
+    const page = +req.query.page || 1;
+    const query = req.query.title;
+
+    try {
+        const response = await fetch(`https://api.themoviedb.org/3/search/movie?api_key=f4278fc5b9413965242b5e22893f2738&query=${query}&language=en-US&page=${page}`);
+        const data = await response.json();
+        console.log(data);
+        res.render('pages/search', {
+            popularMovieList: data.results,
+            currentPage: page,
+            hasPreviousPage: page > 1,
+            hasNextPage: page < data.total_pages,
+            previousPage: page - 1,
+            nextPage: page + 1,
+            lastPage: data.total_pages,
+            path: '/',
+            pageTitle: 'Home',
+            query,
+
+        });
+
+    } catch (err) {
+        throw err;
+    }
+};
+
