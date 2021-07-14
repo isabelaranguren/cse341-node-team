@@ -1,5 +1,5 @@
-const titles = require('../models/titles');
-const Title = require('../models/titles');
+const titleList = require('../models/titles');
+// const Title = require('../models/titles');
 const fetch = require('node-fetch');
 const User = require('../models/user');
 
@@ -24,20 +24,6 @@ exports.getIndex = (req, res, next) => {
         .catch(err => {
             console.log(err);
         })
-};
-
-exports.searchMovie = (req, res, next) => {
-    fetch(SEARCH)
-
-    .then(response => {
-        return response.json();
-    })
-    .then(data => {
-        })
-
-    .catch(err => {
-        console.log(err);
-    })
 };
 
 exports.getUpcoming = (req, res, next) => {
@@ -112,61 +98,102 @@ exports.getTopRated = (req, res, next) => {
 };
 
 exports.getMylist = (req, res, next) => {
+    const userId = req.user._id
+    const firstName = req.user.firstName;
+    const lastName = req.user.lastName;
+
     //maybe should be like getProducts in the shop
-    User.find({firstName: req.user.firstName})
-    .then(user => {
-        
-        titles.find({userId: req.user._id})
-        .then(titles => {
-            console.log(titles[0]);
+
+
+    titleList.findOne({ userId: req.user._id })
+        .then(data => {
+            const titles = data.titles;
+
             res.render('pages/userList', {
                 path: '/my-list/:userId',
                 pageTitle: "My List",
-                titles:titles,
-                user: user
-                
+                titles: titles,
+                firstName
+
             });
-        });
-})
-.catch(err => {
-  const error = new Error(err);
-  error.httpStatusCode = 500;
-  return next(error);
-});
-};
-
-exports.postDeleteList = (req, res, next) => {
-
-};
-
-exports.postList = (req, res, next) => {
-    const title = req.body.movieTitle;
-    const release = req.body.release;
-    const titleId = req.body.titleId;
-    const image = req.body.image;
-    //make sure movie doesnt already exist in database
-    req.user
-        const newTitle = new Title({
-            titles: [{
-
-                title: title,
-                id: titleId,
-                poster_path: image,
-                release: release,
-            }],
-            userId: req.user
-        });
-        newTitle
-        .save()
-        .then(result => {
-            console.log('Created Title!');
-            res.redirect('/my-list/:userId');
         })
         .catch(err => {
             const error = new Error(err);
             error.httpStatusCode = 500;
             return next(error);
         });
+
+
+};
+
+exports.postDeleteList = (req, res, next) => {
+
+};
+
+exports.postList = async (req, res, next) => {
+    const title = req.body.movieTitle;
+    const release = req.body.release;
+    const movieId = req.body.titleId;
+    const image = req.body.image;
+    const userId = req.user._id;
+
+    try {
+        // Let's check if the user has already created a list
+        const result = await titleList.findOne({ userId: userId });
+
+        // If he hasn't let's create one for him and add his title.
+        if (!result) {
+            const newList = new titleList({
+                titles: [{
+                    title,
+                    movieId: movieId,
+                    poster_path: image,
+                    release: release,
+                    isViewed: false
+                }],
+                userId
+            });
+
+            newList
+                .save() // Save the list to the database
+                .then(result => {
+                    console.log('Created Title!');
+                    return res.redirect('/my-list/:userId'); // Redirect the user to his list
+
+                })
+                .catch(err => {
+                    const error = new Error(err);
+                    error.httpStatusCode = 500;
+                    return next(error);
+                });
+        };
+
+        const titleResult = await titleList.find({ userId: userId, "titles.movieId": movieId });
+
+        if (titleResult.length !== 0) {
+            // Tell the user he has that title in his list
+            // Maybe redirect?
+            res.redirect('/my-list/:userId'); // Redirect the user to his list
+            return;
+        }
+
+        const newTitle = {
+            title,
+            movieId: movieId,
+            poster_path: image,
+            release: release,
+            isViewed: false
+        };
+
+        const addTitle = await titleList.update({ userId: userId }, { $push: { titles: newTitle } });
+        if (addTitle.ok) {
+            res.redirect('/my-list/:userId'); // Redirect the user to his list
+            return;
+        }
+
+    } catch (err) {
+        throw err;
+    };
 };
 
 
@@ -189,7 +216,7 @@ exports.getTitleDetails = (req, res, next) => {
                     return response.json();
                 })
                 .then(data => {
-                    console.log(data);
+                    // console.log(data);
                     res.render('pages/media-details', {
                         movieTitle: data.movie_results[0].title,
                         //tvShowResults: titles.tv_shows_results,
@@ -203,7 +230,7 @@ exports.getTitleDetails = (req, res, next) => {
                         titleId: titleId
 
                     });
-                    
+
 
                 })
                 .catch(err => {
@@ -221,21 +248,21 @@ exports.getTitleDetails = (req, res, next) => {
 
 exports.postDeleteTitle = (req, res, next) => {
     const titleId = req.body.titleId;
-    titles.findById(titleId)
-    .then(title => {
-        if(!title) {
-            return next(new Error('No Title Found!'));
-        }
-        return titles.deleteOne({_id:titleId, userId: req.user._id});
-    }).then(() => {
-        console.log('TITLE DELETED!');
-        res.redirect('/my-list/:userId')
-    })
-    .catch(err => {
-        const error = new Error(err);
-        error.httpStatusCode = 500;
-        return next(error);
-    });
+    titleList.findById(titleId)
+        .then(title => {
+            if (!title) {
+                return next(new Error('No Title Found!'));
+            }
+            return titleList.deleteOne({ _id: titleId, userId: req.user._id });
+        }).then(() => {
+            console.log('TITLE DELETED!');
+            res.redirect('/my-list/:userId')
+        })
+        .catch(err => {
+            const error = new Error(err);
+            error.httpStatusCode = 500;
+            return next(error);
+        });
 
 };
 
