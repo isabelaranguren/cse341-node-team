@@ -12,7 +12,8 @@ const User = require('./models/user')
 
 const app = express();
 
-const PORT = process.env.PORT || 2000
+const PORT = process.env.PORT || 3000
+
 
 const corsOptions = {
     origin: "https://my-list.herokuapp.com/",

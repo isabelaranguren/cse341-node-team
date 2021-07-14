@@ -9,6 +9,7 @@ const listTitlesSchema = new Schema({
             poster_path: { type: String, required: true },
             release: { type: Date, required: true },
             userReview: {type: String},
+            haveWatched: {type: Boolean},
         }
     ],
 
