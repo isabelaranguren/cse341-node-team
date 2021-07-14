@@ -21,7 +21,10 @@ exports.getIndex = (req, res, next) => {
             });
         })
         .catch(err => {
-            console.log(err);
+            const error = new Error(err);
+            error.httpStatusCode = 500;
+            console.log(error);
+            return next(error);
         })
 };
 
@@ -42,7 +45,10 @@ exports.getUpcoming = (req, res, next) => {
             });
         })
         .catch(err => {
-            console.log(err);
+            const error = new Error(err);
+            error.httpStatusCode = 500;
+            console.log(error);
+            return next(error);
         })
 
 };
@@ -65,7 +71,10 @@ exports.getNowPlaying = (req, res, next) => {
             });
         })
         .catch(err => {
-            console.log(err);
+            const error = new Error(err);
+            error.httpStatusCode = 500;
+            console.log(error);
+            return next(error);
         })
 
 };
@@ -88,7 +97,10 @@ exports.getTopRated = (req, res, next) => {
             });
         })
         .catch(err => {
-            console.log(err);
+            const error = new Error(err);
+            error.httpStatusCode = 500;
+            console.log(error);
+            return next(error);
         })
 
 };
@@ -112,6 +124,7 @@ exports.getMylist = (req, res, next) => {
         .catch(err => {
             const error = new Error(err);
             error.httpStatusCode = 500;
+            console.log(error);
             return next(error);
         });
 };
@@ -169,7 +182,9 @@ exports.postList = async (req, res, next) => {
         }
 
     } catch (err) {
+        const error = new Error(err);
         error.httpStatusCode = 500;
+        console.log(error);
         return next(error);
     };
 };
@@ -204,11 +219,17 @@ exports.getTitleDetails = (req, res, next) => {
                     });
                 })
                 .catch(err => {
-                    console.log(err)
+                    const error = new Error(err);
+                    error.httpStatusCode = 500;
+                    console.log(error);
+                    return next(error);
                 })
         })
         .catch(err => {
-            console.log(err);
+            const error = new Error(err);
+            error.httpStatusCode = 500;
+            console.log(error);
+            return next(error);
         })
 };
 
@@ -222,7 +243,9 @@ exports.postDeleteTitle = async (req, res, next) => {
         res.redirect('/my-list/:userId'); // Redirect the user to his list
         return;
     } catch (err) {
+        const error = new Error(err);
         error.httpStatusCode = 500;
+        console.log(error);
         return next(error);
     }
 };
@@ -248,7 +271,10 @@ exports.postSearch = async (req, res, next) => {
         });
 
     } catch (err) {
-        throw err;
+        const error = new Error(err);
+        error.httpStatusCode = 500;
+        console.log(error);
+        return next(error);
     }
 };
 
@@ -275,6 +301,9 @@ exports.getSearch = async (req, res, next) => {
         });
 
     } catch (err) {
-        throw err;
+        const error = new Error(err);
+        error.httpStatusCode = 500;
+        console.log(error);
+        return next(error);
     }
 };
