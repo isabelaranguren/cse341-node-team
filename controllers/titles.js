@@ -108,13 +108,12 @@ exports.getMylist = (req, res, next) => {
     titleList.findOne({ userId: req.user._id })
         .then(data => {
             const titles = data.titles;
-
+            console.log(titles);
             res.render('pages/userList', {
                 path: '/my-list/:userId',
                 pageTitle: "My List",
                 titles: titles,
                 firstName
-
             });
         })
         .catch(err => {
@@ -154,18 +153,8 @@ exports.postList = async (req, res, next) => {
                 userId
             });
 
-            newList
-                .save() // Save the list to the database
-                .then(result => {
-                    console.log('Created Title!');
-                    return res.redirect('/my-list/:userId'); // Redirect the user to his list
-
-                })
-                .catch(err => {
-                    const error = new Error(err);
-                    error.httpStatusCode = 500;
-                    return next(error);
-                });
+            const createList = await newList.save();
+            return res.redirect('/my-list/:userId'); // Redirect the user to his list
         };
 
         const titleResult = await titleList.find({ userId: userId, "titles.movieId": movieId });
@@ -192,7 +181,8 @@ exports.postList = async (req, res, next) => {
         }
 
     } catch (err) {
-        throw err;
+        error.httpStatusCode = 500;
+        return next(error);
     };
 };
 
