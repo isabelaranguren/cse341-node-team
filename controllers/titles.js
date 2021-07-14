@@ -162,7 +162,7 @@ exports.postList = async (req, res, next) => {
             isViewed: false
         };
 
-        const addTitle = await titleList.update({ userId: userId }, { $push: { titles: newTitle } });
+        const addTitle = await titleList.updateOne({ userId: userId }, { $push: { titles: newTitle } });
         if (addTitle.ok) {
             res.redirect('/my-list/:userId'); // Redirect the user to his list
             return;
@@ -218,8 +218,7 @@ exports.postDeleteTitle = async (req, res, next) => {
     const userId = req.user._id;
 
     try {
-        const result = await titleList.deleteOne({ userId: userId, "titles.movieId": movieId })
-        console.log(result)
+        const result = await titleList.updateOne({ userId: userId }, { $pull: { titles: { movieId: movieId } } });
         res.redirect('/my-list/:userId'); // Redirect the user to his list
         return;
     } catch (err) {
