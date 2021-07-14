@@ -14,7 +14,7 @@
                 <h1><%= p.title %></h1>
                 <img src="<%= 'http://image.tmdb.org/t/p/w200' + p.poster_path %>" alt="Movie Poster">
                 <form action="/delete-title" method="POST">
-                    <!-- <input type="hidden" value="<%= p._id %>" name="titleId"> -->
+                    <input type="hidden" value="<%= p.movieId %>" name="titleId">
                     <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                     <button class="btn danger" type="submit">Delete</button>
                 </form>

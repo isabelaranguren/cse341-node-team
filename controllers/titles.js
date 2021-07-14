@@ -213,24 +213,19 @@ exports.getTitleDetails = (req, res, next) => {
 };
 
 
-exports.postDeleteTitle = (req, res, next) => {
-    const titleId = req.body.titleId;
-    titleList.findById(titleId)
-        .then(title => {
-            if (!title) {
-                return next(new Error('No Title Found!'));
-            }
-            return titleList.deleteOne({ _id: titleId, userId: req.user._id });
-        }).then(() => {
-            console.log('TITLE DELETED!');
-            res.redirect('/my-list/:userId')
-        })
-        .catch(err => {
-            const error = new Error(err);
-            error.httpStatusCode = 500;
-            return next(error);
-        });
+exports.postDeleteTitle = async (req, res, next) => {
+    const movieId = req.body.titleId;
+    const userId = req.user._id;
 
+    try {
+        const result = await titleList.deleteOne({ userId: userId, "titles.movieId": movieId })
+        console.log(result)
+        res.redirect('/my-list/:userId'); // Redirect the user to his list
+        return;
+    } catch (err) {
+        error.httpStatusCode = 500;
+        return next(error);
+    }
 };
 
 
