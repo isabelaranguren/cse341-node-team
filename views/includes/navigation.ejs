@@ -15,10 +15,10 @@
           Movies
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="top-rated">Top Rated</a>
-          <a class="dropdown-item" href="now-playing">Now Playing</a>
+          <a class="dropdown-item" href="/top-rated">Top Rated</a>
+          <a class="dropdown-item" href="/now-playing">Now Playing</a>
           <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="upcoming">Coming Soon</a>
+          <a class="dropdown-item" href="/upcoming">Coming Soon</a>
         </div>
       </li>
       <li class="nav-item dropdown">
@@ -44,15 +44,15 @@
       </li>
       <% } else { %>
       <li class="nav-item">
-          <a class="nav-link left" href="/my-list/:userId">My List</a>
+        <a class="nav-link left" href="/my-list/:userId">My List</a>
       </li>
       <li class="nav-item">
-          <form action="/logout" method="POST">
+        <form action="/logout" method="POST">
           <input type="hidden" name="_csrf" value="<%= csrfToken %>">
           <button class="btn btn-primary mb-2" type="submit">Logout</button>
-        </form>        
+        </form>
       </li>
-      
+
       <% } %>
     </ul>
     <!--search bar-->
