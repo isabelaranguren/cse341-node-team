@@ -9,6 +9,9 @@
     <main>
         <h1><%= firstName %>'s List</h1>
         <% if (titles.length > 0) { %>
+        <button onclick="displayPending()">Pending</button>
+        <button onclick="displayAll()">All</button>
+        <button onclick="displayViewed()">Viewed</button>
         <ul class="cart__item-list">
             <% titles.forEach(p => { %>
             <li class="cart__item">
@@ -19,7 +22,9 @@
                     <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                     <button class="btn danger" type="submit">Delete</button>
                 </form>
-                <input type="checkbox" onclick="updateViewed(this)" <%= p.isViewed ? "checked" : "" %>>
+                <label>Viewed:</label>
+                <input type="checkbox" class="isViewedBox" onclick="updateViewed(this)"
+                    <%= p.isViewed ? "checked" : "" %>>
             </li>
             <% }) %>
         </ul>

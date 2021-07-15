@@ -315,7 +315,9 @@ exports.postEditView = async (req, res, next) => {
 
     try {
         const updateView = await titleList.updateOne({ userId: userId, "titles.movieId": movieId }, { $set: { 'titles.$.isViewed': isViewed } });
-        console.log(updateView);
+        if (!updateView.ok) {
+            throw new Error;
+        }
 
     } catch (err) {
         const error = new Error(err);
