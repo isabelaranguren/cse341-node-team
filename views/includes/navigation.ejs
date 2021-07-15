@@ -9,6 +9,11 @@
       <li class="nav-item active">
         <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
       </li>
+      <% if(isAuthenticated) { %>
+      <li class="nav-item">
+        <a class="nav-link left" href="/my-list/:userId">My List</a>
+      </li>
+      <% } %>
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
           aria-haspopup="true" aria-expanded="false">
@@ -31,9 +36,7 @@
         <a class="nav-link left" href="/signup">Signup</a>
       </li>
       <% } else { %>
-      <li class="nav-item">
-        <a class="nav-link left" href="/my-list/:userId">My List</a>
-      </li>
+        
       <li class="nav-item">
         <form action="/logout" method="POST">
           <input type="hidden" name="_csrf" value="<%= csrfToken %>">
