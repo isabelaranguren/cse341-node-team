@@ -306,3 +306,20 @@ exports.getSearch = async (req, res, next) => {
         return next(error);
     }
 };
+
+exports.postEditView = async (req, res, next) => {
+    const movieId = req.body.movieId;
+    const isViewed = req.body.isViewed;
+    const userId = req.user._id;
+
+    try {
+        const updateView = await titleList.updateOne({ userId: userId, "titles.movieId": movieId }, { $set: { 'titles.$.isViewed': isViewed } });
+        console.log(updateView);
+
+    } catch (err) {
+        const error = new Error(err);
+        error.httpStatusCode = 500;
+        console.log(error);
+        return next(error);
+    }
+};
