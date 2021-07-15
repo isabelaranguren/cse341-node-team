@@ -5,7 +5,7 @@ const User = require('../models/user');
 const bcrypt = require('bcryptjs');
 
 require('dotenv').config();
-
+const SENGRID_API = process.env.SENGRID_API;
 const WEBSITE_URL = process.env.WEBSITE_URL;
 
 const nodemailer = require('nodemailer');
@@ -16,7 +16,7 @@ const { validationResult } = require('express-validator');
 
 const transporter = nodemailer.createTransport(sendgridTransport({
   auth: {    
-    api_key: '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'
+    api_key: SENGRID_API
   }
 }));
 
@@ -257,15 +257,17 @@ exports.getNewPassword = (req, res, next) => {
       path: '/new-password',
       pageTitle: 'New Password',
       errorMessage: message,
-      userId: user._id.toString(),
+      userId: user?._id.toString(),
       passwordToken: token
     });
     })
     .catch(err => {
+      console.log(err);
       const error = new Error(err);
       error.httpStatusCode = 500;
       
       return next(error);
+      
 
     });
 }; 
