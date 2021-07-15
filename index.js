@@ -12,7 +12,7 @@ const User = require('./models/user')
 
 const app = express();
 
-const PORT = process.env.PORT || 3000
+const PORT = process.env.PORT || 3500
 
 
 const corsOptions = {
