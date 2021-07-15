@@ -1,48 +1,52 @@
 <%- include('../../includes/head.ejs') %>
 <%- include('../../includes/header.ejs') %>
-<link rel="stylesheet" href="/css/main.css">
+<link rel="stylesheet" href="./css/login.css">
+<!-- <link rel="stylesheet" href="./css/main.css"> -->
 </head>
-<body>
-    <%- include('../../includes/navigation.ejs') %>
-    <div class="container mt-5">
-        <% if (errorMessage) { %>
+<body class="align">
+    <nav>
+        <a class="nav-link" href="/">Go Back <span class="sr-only">(current)</span></a>
+    </nav>
+      <% if (errorMessage) { %>
         <div class="user-message user-message--error"><%= errorMessage %></div>
         <% } %>
-        <div class="d-flex justify-content-center align-items-center">
-        <section id="login">
-            <div class="container">
-                <div class="row">
-                    <div class="col-xs-12">
-                        <div class="form-wrap">
-                    
-            <h5>Log in with your email account</h5>
-
-        <form class="login-form" action="/login" method="POST" id="login-form">
-            <div class="form-group">
-                <label for="email" class="sr-only">Email</label>
-                <input class="form-control<%= validationErrors.find(e => e.param === 'email' ) ? 'invalid' : '' %>" type="email"
-                    name="email" id="email" value="<%= oldInput.email %>" placeholder="somebody@example.com">
-            </div>
-            <div class="form-group">
-                <label for="password" class="sr-only">Password</label>
-                <input class="form-control <%= validationErrors.find(e => e.param === 'password' ) ? 'invalid' : '' %>"
-                    type="password" name="password" id="password" value="<%= oldInput.password %>" placeholder="Password">
+    <div class="grid">
+      <form class="form login" action="/login" method="POST" id="login-form">
+        <div class="form__field">
+          <label for="login__email"><svg class="icon">
+              <use xlink:href="#icon-user"></use>
+            </svg><span class="hidden">email</span></label>
+          <input autocomplete="email" id="login__email" type="text" name="email" class="form__input <%= validationErrors.find(e => e.param === 'email' ) ? 'invalid' : '' %>" 
+          value="<%= oldInput.email %>" placeholder="Email" required>
+        </div>
+        <div class="form__field">
+          <label for="login__password"><svg class="icon">
+              <use xlink:href="#icon-lock"></use>
+            </svg><span class="hidden">Password</span></label>
+          <input id="login__password" type="password" name="password" class="form__input <%= validationErrors.find(e => e.param === 'password' ) ? 'invalid' : '' %>" 
+          placeholder="Password" value="<%= oldInput.password %>" id="password" required>
+        </div>
+        <div class="form__field">
             <input type="hidden" name="_csrf" value="<%= csrfToken %>">
-            <div class="d-flex justify-content-center">
-                <button class="btn btn-custom mt-3"  type="submit">Login</button>
-              </div>
-
-    </form>
-    <hr>
-    <a href="/reset">Forgot your password?</a>
-    <a  href="/signup">Don't have an account? Signup</a>
-    
-</div>
-</div> <!-- /.col-xs-12 -->
-</div> <!-- /.row -->
-</div> <!-- /.container -->
-</section>
-</div>
-</div>
-    <script href="/public/scripts/example.js"></script>
+          <input type="submit" value="Sign In">
+        </div>
+      </form>
+      <p class="text--center"><a href="/reset">Rorgot your Password</a> <svg class="icon"></p>
+      <p class="text--center">Not a member? <a href="/signup">Sign up now</a> <svg class="icon">
+          <use xlink:href="#icon-arrow-right"></use>
+        </svg></p>
+    </div>
+    <svg xmlns="http://www.w3.org/2000/svg" class="icons">
+      <symbol id="icon-arrow-right" viewBox="0 0 1792 1792">
+        <path d="M1600 960q0 54-37 91l-651 651q-39 37-91 37-51 0-90-37l-75-75q-38-38-38-91t38-91l293-293H245q-52 0-84.5-37.5T128 1024V896q0-53 32.5-90.5T245 768h704L656 474q-38-36-38-90t38-90l75-75q38-38 90-38 53 0 91 38l651 651q37 35 37 90z" />
+      </symbol>
+      <symbol id="icon-lock" viewBox="0 0 1792 1792">
+        <path d="M640 768h512V576q0-106-75-181t-181-75-181 75-75 181v192zm832 96v576q0 40-28 68t-68 28H416q-40 0-68-28t-28-68V864q0-40 28-68t68-28h32V576q0-184 132-316t316-132 316 132 132 316v192h32q40 0 68 28t28 68z" />
+      </symbol>
+      <symbol id="icon-user" viewBox="0 0 1792 1792">
+        <path d="M1600 1405q0 120-73 189.5t-194 69.5H459q-121 0-194-69.5T192 1405q0-53 3.5-103.5t14-109T236 1084t43-97.5 62-81 85.5-53.5T538 832q9 0 42 21.5t74.5 48 108 48T896 971t133.5-21.5 108-48 74.5-48 42-21.5q61 0 111.5 20t85.5 53.5 62 81 43 97.5 26.5 108.5 14 109 3.5 103.5zm-320-893q0 159-112.5 271.5T896 896 624.5 783.5 512 512t112.5-271.5T896 128t271.5 112.5T1280 512z" />
+      </symbol>
+    </svg>
     <%- include('../../includes/end.ejs') %>
+
+    
