@@ -38,7 +38,7 @@ router.post('/signup',
         return User.findOne({ email: value }).then(userDoc => {
           if (userDoc) {
             return Promise.reject(
-                'EMail exists already, please choose a different one.'
+                'E-mail exists already, please choose a different one.'
             );
           }
         });
@@ -70,9 +70,9 @@ router.get('/reset', authController.getReset);
 
 router.post('/reset', authController.postReset);
 
-router.get('/reset/:token', authController.getNewPassword);
+ router.get('/reset/:token', authController.getNewPassword);
 
-router.post('/new-password', authController.postNewPassword);
+ router.post('/new-password', authController.postNewPassword);
 
 //router.post('/deleteAccount', authController.postDeleteAccount);
 

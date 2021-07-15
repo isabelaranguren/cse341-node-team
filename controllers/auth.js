@@ -6,7 +6,19 @@ const bcrypt = require('bcryptjs');
 
 require('dotenv').config();
 
+const WEBSITE_URL = process.env.WEBSITE_URL;
+
+const nodemailer = require('nodemailer');
+//const { compileClient } = require('pug');
+const sendgridTransport = require('nodemailer-sendgrid-transport');
+
 const { validationResult } = require('express-validator');
+
+const transporter = nodemailer.createTransport(sendgridTransport({
+  auth: {    
+    api_key: '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'
+  }
+}));
 
 exports.getLogin = (req, res, next) => {
     let message = req.flash('error');
@@ -211,15 +223,15 @@ exports.postReset = (req, res, next) => {
       })
       .then(result => {
         res.redirect('/');
-        // transporter.sendMail({
-        //   to: req.body.email,
-        //   from: 'cro18022@byui.edu',
-        //   subject: 'Password reset',
-        //   html: `
-        //     <p>You have requested a password reset</p>
-        //     <p>Click this <a href="${WEBSITE_URL}reset/${token}">link</a> to set a new password.</p>
-        //   `
-        // });
+        transporter.sendMail({
+          to: req.body.email,
+          from: 'cro18022@byui.edu',
+          subject: 'Password reset',
+          html: `
+            <p>You have requested a password reset</p>
+            <p>Click this <a href="${WEBSITE_URL}reset/${token}">link</a> to set a new password.</p>
+          `
+        });
       })
       .catch(err => {
         const error = new Error(err);
@@ -232,6 +244,7 @@ exports.postReset = (req, res, next) => {
 
 exports.getNewPassword = (req, res, next) => {
     const token = req.params.token;
+
     User.findOne({resetToken: token, resetTokenExpiration: {$gt: Date.now()}})
     .then(user => {
       let message = req.flash('error');
@@ -251,7 +264,9 @@ exports.getNewPassword = (req, res, next) => {
     .catch(err => {
       const error = new Error(err);
       error.httpStatusCode = 500;
+      
       return next(error);
+
     });
 }; 
 
@@ -288,3 +303,6 @@ exports.postNewPassword = (req, res, next) => {
 // exports.postDeleteAccount = (req,res,next) => {
 
 // };
+
+
+

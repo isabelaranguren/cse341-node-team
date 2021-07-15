@@ -3,8 +3,7 @@ const titleList = require('../models/titles');
 const fetch = require('node-fetch');
 const User = require('../models/user');
 
-
-exports.getIndex = (req, res, next) => {
+exports.getIndex = (req, res, next) => { 
     const page = +req.query.page || 1;
     const offset = 10 * (page - 1);
     fetch(`https://api.themoviedb.org/3/movie/popular?api_key=f4278fc5b9413965242b5e22893f2738&language=en-US&page=${page}`)
