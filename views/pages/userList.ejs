@@ -1,6 +1,7 @@
 <%- include('../includes/head.ejs') %>
 <%- include('../includes/header.ejs') %>
 <link rel="stylesheet" href="/css/main.css">
+<script src="/scripts/isViewed.js"></script>
 </head>
 
 <body>
@@ -18,7 +19,7 @@
                     <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                     <button class="btn danger" type="submit">Delete</button>
                 </form>
-                <input type="checkbox" <%= p.isViewed ? 'checked' : '' %>>
+                <input type="checkbox" onclick="updateViewed(this)" <%= p.isViewed ? "checked" : "" %>>
             </li>
             <% }) %>
         </ul>
