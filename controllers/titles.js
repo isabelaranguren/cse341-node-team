@@ -1,5 +1,5 @@
 const titleList = require('../models/titles');
-// const Title = require('../models/titles');
+
 const fetch = require('node-fetch');
 const User = require('../models/user');
 
@@ -9,7 +9,6 @@ exports.getIndex = (req, res, next) => {
     fetch(`https://api.themoviedb.org/3/movie/popular?api_key=f4278fc5b9413965242b5e22893f2738&language=en-US&page=${page}`)
         .then(response => response.json())
         .then(titles => {
-            // console.log(titles)
             res.render('pages/home', {
                 popularMovieList: titles.results,
                 currentPage: page,
@@ -21,7 +20,10 @@ exports.getIndex = (req, res, next) => {
             });
         })
         .catch(err => {
-            console.log(err);
+            const error = new Error(err);
+            error.httpStatusCode = 500;
+            console.log(error);
+            return next(error);
         })
 };
 
@@ -31,7 +33,6 @@ exports.getUpcoming = (req, res, next) => {
     fetch(`https://api.themoviedb.org/3/movie/upcoming?api_key=f4278fc5b9413965242b5e22893f2738&language=en-US&page=${page}`)
         .then(response => response.json())
         .then(titles => {
-            // console.log(titles)
             res.render('pages/upcoming', {
                 upcomingList: titles.results,
                 currentPage: page,
@@ -43,7 +44,10 @@ exports.getUpcoming = (req, res, next) => {
             });
         })
         .catch(err => {
-            console.log(err);
+            const error = new Error(err);
+            error.httpStatusCode = 500;
+            console.log(error);
+            return next(error);
         })
 
 };
@@ -55,7 +59,6 @@ exports.getNowPlaying = (req, res, next) => {
     fetch(`https://api.themoviedb.org/3/movie/now_playing?api_key=f4278fc5b9413965242b5e22893f2738&language=en-US&page=${page}`)
         .then(response => response.json())
         .then(titles => {
-            // console.log(titles)
             res.render('pages/now-playing', {
                 nowPlayingList: titles.results,
                 currentPage: page,
@@ -67,7 +70,10 @@ exports.getNowPlaying = (req, res, next) => {
             });
         })
         .catch(err => {
-            console.log(err);
+            const error = new Error(err);
+            error.httpStatusCode = 500;
+            console.log(error);
+            return next(error);
         })
 
 };
@@ -79,7 +85,6 @@ exports.getTopRated = (req, res, next) => {
     fetch(`https://api.themoviedb.org/3/movie/top_rated?api_key=f4278fc5b9413965242b5e22893f2738&language=en-US&page=${page}`)
         .then(response => response.json())
         .then(titles => {
-            // console.log(titles)
             res.render('pages/top-rated', {
                 topRatedList: titles.results,
                 currentPage: page,
@@ -91,42 +96,38 @@ exports.getTopRated = (req, res, next) => {
             });
         })
         .catch(err => {
-            console.log(err);
+            const error = new Error(err);
+            error.httpStatusCode = 500;
+            console.log(error);
+            return next(error);
         })
 
 };
 
 exports.getMylist = (req, res, next) => {
-    const userId = req.user._id
     const firstName = req.user.firstName;
     const lastName = req.user.lastName;
 
-    //maybe should be like getProducts in the shop
-
-
     titleList.findOne({ userId: req.user._id })
         .then(data => {
-            const titles = data.titles;
-            console.log(titles);
+            let titles = [];
+            data ? titles = data.titles : titles = [];
             res.render('pages/userList', {
                 path: '/my-list/:userId',
                 pageTitle: "My List",
                 titles: titles,
-                firstName
+                firstName,
+                lastName,
             });
         })
         .catch(err => {
             const error = new Error(err);
             error.httpStatusCode = 500;
+            console.log(error);
             return next(error);
         });
-
-
 };
 
-exports.postDeleteList = (req, res, next) => {
-
-};
 
 exports.postList = async (req, res, next) => {
     const title = req.body.movieTitle;
@@ -173,14 +174,16 @@ exports.postList = async (req, res, next) => {
             isViewed: false
         };
 
-        const addTitle = await titleList.update({ userId: userId }, { $push: { titles: newTitle } });
+        const addTitle = await titleList.updateOne({ userId: userId }, { $push: { titles: newTitle } });
         if (addTitle.ok) {
             res.redirect('/my-list/:userId'); // Redirect the user to his list
             return;
         }
 
     } catch (err) {
+        const error = new Error(err);
         error.httpStatusCode = 500;
+        console.log(error);
         return next(error);
     };
 };
@@ -189,26 +192,21 @@ exports.postList = async (req, res, next) => {
 
 exports.getTitleDetails = (req, res, next) => {
     const titleId = req.params.id;
-    //const imdb_id = req.body.imdb_id;
+
     fetch(`https://api.themoviedb.org/3/movie/${titleId}?api_key=f4278fc5b9413965242b5e22893f2738&language=en-US`)
 
         .then(response => {
-            // console.log(response);
             return response.json();
         })
         .then(title => {
-            // console.log(title);
             const id = title.imdb_id;
             fetch(`https://api.themoviedb.org/3/find/${id}?api_key=f4278fc5b9413965242b5e22893f2738&language=en-US&&external_source=imdb_id`)
                 .then(response => {
-                    // console.log(response);
                     return response.json();
                 })
                 .then(data => {
-                    // console.log(data);
                     res.render('pages/media-details', {
                         movieTitle: data.movie_results[0].title,
-                        //tvShowResults: titles.tv_shows_results,
                         path: '/title/:id',
                         pageTitle: 'Movie Details',
                         movieDetails: data.movie_results[0].overview,
@@ -217,42 +215,38 @@ exports.getTitleDetails = (req, res, next) => {
                         image: data.movie_results[0].poster_path,
                         gallery: data.movie_results[0].backdrop_path,
                         titleId: titleId
-
                     });
-
-
                 })
                 .catch(err => {
-                    console.log(err)
+                    const error = new Error(err);
+                    error.httpStatusCode = 500;
+                    console.log(error);
+                    return next(error);
                 })
-
-
-        })
-        .catch(err => {
-            console.log(err);
-        })
-
-
-};
-
-exports.postDeleteTitle = (req, res, next) => {
-    const titleId = req.body.titleId;
-    titleList.findById(titleId)
-        .then(title => {
-            if (!title) {
-                return next(new Error('No Title Found!'));
-            }
-            return titleList.deleteOne({ _id: titleId, userId: req.user._id });
-        }).then(() => {
-            console.log('TITLE DELETED!');
-            res.redirect('/my-list/:userId')
         })
         .catch(err => {
             const error = new Error(err);
             error.httpStatusCode = 500;
+            console.log(error);
             return next(error);
-        });
+        })
+};
 
+
+exports.postDeleteTitle = async (req, res, next) => {
+    const movieId = req.body.titleId;
+    const userId = req.user._id;
+
+    try {
+        const result = await titleList.updateOne({ userId: userId }, { $pull: { titles: { movieId: movieId } } });
+        res.redirect('/my-list/:userId'); // Redirect the user to his list
+        return;
+    } catch (err) {
+        const error = new Error(err);
+        error.httpStatusCode = 500;
+        console.log(error);
+        return next(error);
+    }
 };
 
 
@@ -276,7 +270,10 @@ exports.postSearch = async (req, res, next) => {
         });
 
     } catch (err) {
-        throw err;
+        const error = new Error(err);
+        error.httpStatusCode = 500;
+        console.log(error);
+        return next(error);
     }
 };
 
@@ -287,7 +284,7 @@ exports.getSearch = async (req, res, next) => {
     try {
         const response = await fetch(`https://api.themoviedb.org/3/search/movie?api_key=f4278fc5b9413965242b5e22893f2738&query=${query}&language=en-US&page=${page}`);
         const data = await response.json();
-        console.log(data);
+
         res.render('pages/search', {
             popularMovieList: data.results,
             currentPage: page,
@@ -303,6 +300,9 @@ exports.getSearch = async (req, res, next) => {
         });
 
     } catch (err) {
-        throw err;
+        const error = new Error(err);
+        error.httpStatusCode = 500;
+        console.log(error);
+        return next(error);
     }
 };

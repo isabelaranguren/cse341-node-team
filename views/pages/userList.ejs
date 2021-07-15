@@ -1,12 +1,13 @@
 <%- include('../includes/head.ejs') %>
 <%- include('../includes/header.ejs') %>
 <link rel="stylesheet" href="/css/main.css">
+<link rel="stylesheet" href="/css/items.css">
 </head>
-
 <body>
     <%- include('../includes/navigation.ejs') %>
     <main>
-        <h1><%= firstName %>'s List</h1>
+        <div class="movie-container">
+        <h1 class="text-center"><%= firstName %>'s List</h1>
         <% if (titles.length > 0) { %>
         <ul class="cart__item-list">
             <% titles.forEach(p => { %>
@@ -14,7 +15,7 @@
                 <h1><%= p.title %></h1>
                 <img src="<%= 'http://image.tmdb.org/t/p/w200' + p.poster_path %>" alt="Movie Poster">
                 <form action="/delete-title" method="POST">
-                    <!-- <input type="hidden" value="<%= p._id %>" name="titleId"> -->
+                    <input type="hidden" value="<%= p.movieId %>" name="titleId">
                     <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                     <button class="btn danger" type="submit">Delete</button>
                 </form>
@@ -25,6 +26,8 @@
 
         <% } else { %>
         <h1>No Media added!</h1>
+
         <% } %>
+        </div>
     </main>
     <%- include('../includes/end.ejs') %>
