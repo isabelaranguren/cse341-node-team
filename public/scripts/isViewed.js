@@ -26,3 +26,44 @@ const updateViewed = async (node) => {
         console.log(error);
     }
 }
+
+
+
+const displayPending = () => {
+    const nodeMovies = document.querySelectorAll('.cart__item');
+    const moviesLi = Array.from(nodeMovies);
+    const nodeInput = document.querySelectorAll('.isViewedBox');
+    const inputView = Array.from(nodeInput);
+
+    moviesLi.map((movie, index) => {
+        if (inputView[index].checked) {
+            movie.classList.add('hideMovie');
+        } else {
+            movie.classList.remove('hideMovie');
+        }
+    });
+};
+
+const displayAll = () => {
+    const nodeMovies = document.querySelectorAll('.cart__item');
+    const moviesLi = Array.from(nodeMovies);
+
+    moviesLi.map((movie) => {
+        movie.classList.remove('hideMovie');
+    });
+};
+
+const displayViewed = () => {
+    const nodeMovies = document.querySelectorAll('.cart__item');
+    const moviesLi = Array.from(nodeMovies);
+    const nodeInput = document.querySelectorAll('.isViewedBox');
+    const inputView = Array.from(nodeInput);
+
+    moviesLi.map((movie, index) => {
+        if (!inputView[index].checked) {
+            movie.classList.add('hideMovie');
+        } else {
+            movie.classList.remove('hideMovie');
+        }
+    });
+};
