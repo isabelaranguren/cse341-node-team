@@ -24,6 +24,8 @@ router.get('/search', titleController.getSearch);
 
 router.post('/delete-title', isAuth, titleController.postDeleteTitle);
 
+router.post('/edit-view', isAuth, titleController.postEditView);
+
 module.exports = router;
 
 
