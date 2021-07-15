@@ -1,20 +1,26 @@
 <%- include('../../includes/head.ejs') %>
 <%- include('../../includes/header.ejs') %>
+<link rel="stylesheet" href="./css/login.css">
 </head>
-<body>
-    <%- include('../../includes/navigation.ejs') %>
-    <main>
+<body class="align">
+    <nav>
+        <a class="nav-link" href="/">Go Back <span class="sr-only">(current)</span></a>
+    </nav>
         <% if (errorMessage) { %>
             <div class="user-message user-message--error"><%= errorMessage %></div>
         <% } %>
-        <form class="login-form" action="/reset" method="POST">
-            <div class="form-control">
-                <label for="email">E-Mail</label>
-                <input type="email" name="email" id="email">
+        <div class="grid">
+            <form class="form login" action="/reset" method="POST">
+            <div class="form__field">
+                <label for="login__email"><svg class="icon">
+                    <use xlink:href="#icon-user"></use>
+                </svg><span class="hidden">Email</span></label>
+                <input autocomplete="email" id="login__email" type="text" name="email" class="form__input" placeholder="Email" required>
             </div>
-                    
-            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
-            <button class="btn" type="submit">Reset Password</button>
+            <div class="form__field">
+                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+              <input type="submit" value="Sign In">
+            </div>  
         </form>
-    </main>
 <%- include('../../includes/end.ejs') %>
+
