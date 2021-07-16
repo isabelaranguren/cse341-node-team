@@ -12,8 +12,7 @@ const User = require('./models/user')
 
 const app = express();
 
-const PORT = process.env.PORT || 3500
-
+const PORT = process.env.PORT || 1000
 
 const corsOptions = {
     origin: "https://my-list.herokuapp.com/",
@@ -39,6 +38,7 @@ app.use(express.static(path.join(__dirname, 'public')))
     .set('views', path.join(__dirname, 'views'))
     .set('view engine', 'ejs')
     .use(bodyParser.urlencoded({ extended: true }))
+    .use(express.json({ type: ['application/json', 'text/plain'] }))
     .use(cors(corsOptions))
     .listen(PORT, () => console.log(`Listening on ${PORT}`));
 app.use(session({

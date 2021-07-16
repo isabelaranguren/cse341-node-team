@@ -2,32 +2,40 @@
 <%- include('../includes/header.ejs') %>
 <link rel="stylesheet" href="/css/main.css">
 <link rel="stylesheet" href="/css/items.css">
+<script src="/scripts/isViewed.js"></script>
 </head>
 <body>
     <%- include('../includes/navigation.ejs') %>
-    <main>
-        <div class="movie-container">
+    <div class="container">
         <h1 class="text-center"><%= firstName %>'s List</h1>
         <% if (titles.length > 0) { %>
-        <ul class="cart__item-list">
+        <div class="mt-5 center">
+        <button onclick="displayPending()"type="button" class="btn btn-primary btn-sm">Pending</button>
+        <button onclick="displayAll()"type="button" class="btn btn-secondary btn-sm">All</button>
+        <button onclick="displayViewed()" type="button" class="btn btn-primary btn-sm">Viewed</button>
+        </div>
+    </div>
+    <div class="movie-container">
+        <div class="movies mt-5">
             <% titles.forEach(p => { %>
             <li class="cart__item">
-                <h1><%= p.title %></h1>
-                <img src="<%= 'http://image.tmdb.org/t/p/w200' + p.poster_path %>" alt="Movie Poster">
-                <form action="/delete-title" method="POST">
+                <h2 class="mt-5"><%= p.title %></h2>
+                <img class="center poster-wrapper" src="<%= 'http://image.tmdb.org/t/p/w200' + p.poster_path %>" alt="Movie Poster">
+                <form action="/delete-title" method="POST" class="form mt-3">
                     <input type="hidden" value="<%= p.movieId %>" name="titleId">
                     <input type="hidden" name="_csrf" value="<%= csrfToken %>">
-                    <button class="btn danger" type="submit">Delete</button>
+                    <button class="btn mt-2" type="submit">Delete</button>
                 </form>
-                <input type="checkbox" <%= p.isViewed ? 'checked' : '' %>>
+                <label>Viewed:</label>
+                <input type="checkbox" class="isViewedBox" onclick="updateViewed(this)"
+                    <%= p.isViewed ? "checked" : "" %>>
             </li>
             <% }) %>
         </ul>
-
         <% } else { %>
         <h1>No Media added!</h1>
-
         <% } %>
         </div>
+    </section>
     </main>
     <%- include('../includes/end.ejs') %>
