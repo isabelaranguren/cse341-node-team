@@ -257,7 +257,7 @@ exports.getNewPassword = (req, res, next) => {
       path: '/new-password',
       pageTitle: 'New Password',
       errorMessage: message,
-      userId: user?._id.toString(),
+      userId: req.user._id.toString(),
       passwordToken: token
     });
     })
